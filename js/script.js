@@ -5,8 +5,8 @@
  */
 
 const PROFILE = {
-  name: "YOUR NAME",
-  email: "YOUR_EMAIL@example.com",
+  name: "Ярослав Hldlnq",
+  email: "y.rimashevski.work@gmail.com",
   github: "https://github.com/",
   linkedin: "https://www.linkedin.com/",
 };
