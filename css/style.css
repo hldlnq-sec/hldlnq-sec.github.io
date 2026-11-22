@@ -868,6 +868,16 @@ h1,h2,h3,h4,h5,h6,.hero h1,.section-heading h2,.university-copy h2,.education-bl
 .portfolio-modal-window { background:#030705; border-color:rgba(112,255,155,.5); }
 .portfolio-modal-bar { background:#06100a; color:#91efa5; border-color:rgba(112,255,155,.22); }
 .portfolio-modal-content { color:#d8f7df; font-family:"DM Mono",Consolas,monospace; }
+/* FIX: cloned/moved sections inside modal windows must not remain hidden by scroll-reveal. */
+.portfolio-modal-content .reveal,
+.portfolio-modal-content .reveal:not(.is-visible) {
+  opacity: 1 !important;
+  translate: none !important;
+  transform: none !important;
+  filter: none !important;
+  transition: none !important;
+}
+
 .portfolio-modal-content p,.portfolio-modal-content li,.portfolio-modal-content .network-detail-main>p { color:#9bb9a1; }
 .portfolio-modal-content .section-heading h2,.portfolio-modal-content h2,.portfolio-modal-content h3,.portfolio-modal-content h4 { color:#e5ffe9; font-family:"DM Mono",Consolas,monospace !important; }
 

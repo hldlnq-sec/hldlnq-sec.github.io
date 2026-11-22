@@ -1003,6 +1003,17 @@ function openPortfolioWindow(sectionId, command) {
     }
   }
 
+  // Modal content is cloned/moved outside the page viewport. The original reveal
+  // IntersectionObserver does not observe these nodes, so clear reveal state
+  // before showing the internal window to prevent an invisible (black) panel.
+  content.querySelectorAll(".reveal").forEach((node) => {
+    node.classList.remove("reveal");
+    node.classList.add("is-visible");
+    node.style.removeProperty("--reveal-delay");
+    node.style.removeProperty("opacity");
+    node.style.removeProperty("translate");
+  });
+
   const names = {
     about: "PROFILE://ABOUT", university: "EDUCATION://BSUIR", expertise: "SYSTEM://SKILLS", projects: "WORKSPACE://PROJECTS",
     experience: "ACADEMY://EDUCATION", contact: "COMMS://CONTACT", resume: "FILES://RESUME", "cyber-range": "SIMULATION://CYBER-RANGE"

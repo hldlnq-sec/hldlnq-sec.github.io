@@ -132,3 +132,7 @@ After the local access simulation, the site opens a terminal-first command works
 Use `help` to list commands. `contact` opens a dedicated contact window that always displays GitHub, LinkedIn, Telegram, Instagram, and Email; configured channels are clickable, while empty channels show the matching PROFILE field to fill in. Contact URLs are validated against allowed HTTPS domains.
 
 The two decorative status labels above the Firewall Defense panel were removed to keep the panel cleaner.
+
+## Исправление пустых внутренних окон
+
+Внутренние окна копируют разделы исходной страницы. Класс `reveal` скрывает элементы до срабатывания `IntersectionObserver`; скопированные элементы не наблюдались этим observer и оставались прозрачными. При открытии модального окна теперь снимается `reveal`-состояние со скопированного или перемещённого содержимого. CSS-модальное окно дополнительно принудительно показывает такие элементы.
