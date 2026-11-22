@@ -730,3 +730,74 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 /* Discovery link to the interactive Cyber Range */
 .hero-range-cta { border-color: rgba(69, 240, 176, .28); color: var(--green); background: rgba(69, 240, 176, .035); }
 .hero-range-cta:hover { border-color: rgba(69, 240, 176, .62); background: rgba(69, 240, 176, .08); color: #baffdf; }
+
+
+/* Full-site hacker-console identity and first-entry access sequence */
+:root { --green: #70ff9b; --green-dim: rgba(112,255,155,.12); --bg: #050a08; --bg-soft: #08120d; --panel: #0b1710; --panel-2: #102016; --line: rgba(112,255,155,.16); --line-strong: rgba(112,255,155,.30); --blue: #42d9b4; }
+body { background-color: #050a08; background-image: radial-gradient(ellipse at 50% -10%, rgba(20,105,54,.16), transparent 48%); }
+.page-grid { opacity: .22; background-image: linear-gradient(rgba(112,255,155,.075) 1px, transparent 1px), linear-gradient(90deg, rgba(112,255,155,.075) 1px, transparent 1px); background-size: 44px 44px; mask-image: linear-gradient(to bottom, black, transparent 90%); }
+.site-header { background: rgba(4,10,7,.94); border-bottom-color: rgba(112,255,155,.22); }
+.section { border-top-color: rgba(112,255,155,.13); }
+.button-primary, .header-cta:hover { background: var(--green); color: #031007; }
+.project-card, .expertise-card, .terminal-window, .range-panel, .resume-panel, .contact-link { border-color: rgba(112,255,155,.20); box-shadow: 0 0 0 1px rgba(112,255,155,.025), 0 16px 50px rgba(0,0,0,.18); }
+.project-card:hover, .expertise-card:hover, .terminal-command-card:hover { border-color: rgba(112,255,155,.52); box-shadow: 0 0 28px rgba(54,255,123,.07); }
+.section-kicker, .section-index, .meta-label, .project-type, .lab-label { color: #79d99a; }
+
+/* Accessible simulated terminal gate */
+.access-sequence { position: fixed; inset: 0; z-index: 2000; display: grid; place-items: center; overflow-y: auto; padding: 28px 18px; color: #d8f7df; background: radial-gradient(ellipse at 50% 45%, rgba(16,83,39,.24), transparent 58%), #030705; font-family: var(--font-mono); transition: opacity .65s ease, visibility .65s ease; }
+.access-sequence.is-unlocked { opacity: 0; visibility: hidden; pointer-events: none; }
+.access-noise { position: absolute; inset: 0; pointer-events: none; opacity: .15; background: repeating-linear-gradient(0deg, transparent 0 3px, rgba(112,255,155,.09) 4px, transparent 5px); animation: scan-drift 8s linear infinite; }
+.access-frame { position: relative; width: min(760px, 100%); padding: clamp(20px,4vw,42px); border: 1px solid rgba(112,255,155,.32); background: rgba(5,14,8,.92); box-shadow: 0 0 0 8px rgba(112,255,155,.025), 0 0 70px rgba(37,255,103,.09), inset 0 0 60px rgba(37,255,103,.025); }
+.access-topline, .access-footer, .access-progress-meta { display: flex; align-items: center; justify-content: space-between; gap: 12px; color: #648b70; font-size: 9px; letter-spacing: .09em; }
+.access-topline span:first-child { color: var(--green); }
+.access-brand { display:flex; justify-content:space-between; gap:12px; margin-top:42px; padding-bottom:13px; border-bottom:1px solid rgba(112,255,155,.15); font-size:11px; }
+.access-mark { color: var(--green); }
+.access-version { color:#62806a; }
+.access-title { padding: 32px 0 22px; }
+.access-title h1 { margin:8px 0 4px; color:#e8ffed; font:700 clamp(32px,8vw,66px)/1 var(--font-display); letter-spacing:-.07em; text-shadow:0 0 25px rgba(112,255,155,.18); }
+.access-title h1 span { color:var(--green); animation: caret-blink .8s steps(2) infinite; }
+.access-title p { margin:12px 0 0; color:#88a792; font:12px/1.7 var(--font-body); }
+.access-terminal { border:1px solid rgba(112,255,155,.23); background:#020704; }
+.access-terminal-head { display:flex; justify-content:space-between; padding:12px 14px; border-bottom:1px solid rgba(112,255,155,.13); color:#81ad8c; font-size:10px; }
+.access-live { color:var(--green); }.access-live i { display:inline-block; width:6px;height:6px;border-radius:50%;background:var(--green);box-shadow:0 0 9px var(--green);margin-right:5px; }
+.access-log { min-height:142px; max-height:190px; overflow:hidden; padding:14px; color:#9bbda3; font-size:10px; line-height:1.9; }
+.access-log p { margin:0; opacity:0; animation: log-appear .25s ease forwards; overflow-wrap:anywhere; }
+.access-log b { color:#4d8059; font-weight:400; }.access-log .log-ok { color:var(--green); }.access-log .log-warn { color:#e8ca72; }
+.access-progress { height:3px; margin:0 14px; background:#14251a; }.access-progress span { display:block; width:0;height:100%; background:var(--green); box-shadow:0 0 12px var(--green); transition:width .45s ease; }
+.access-progress-meta { padding:8px 14px 12px; font-size:8px; }
+.access-command { display:flex; align-items:center; gap:10px; margin-top:18px; padding:10px 12px; border:1px solid rgba(112,255,155,.25); background:rgba(9,28,14,.7); }
+.access-command label { color:var(--green); white-space:nowrap; font-size:10px; }.access-command input { min-width:0; flex:1; border:0; outline:0; color:#e6ffeb; background:transparent; font:11px var(--font-mono); }.access-command input::placeholder { color:#56715c; }
+.access-command button { padding:9px 12px; border:1px solid rgba(112,255,155,.5); color:var(--green); background:rgba(112,255,155,.08); font:10px var(--font-mono); cursor:pointer; }.access-command button:disabled { opacity:.35; cursor:not-allowed; }
+.access-footer { margin-top:20px; font-size:8px; }.access-footer button { padding:5px 0; border:0; color:#8eb99a; background:transparent; font:inherit; cursor:pointer; }.access-footer button:hover { color:var(--green); }
+.access-feedback { min-height:18px; margin:10px 0 0; color:#e8ca72; font-size:10px; }
+@keyframes scan-drift { from { transform:translateY(-20px) } to { transform:translateY(20px) } }
+@keyframes log-appear { to { opacity:1 } }
+@keyframes caret-blink { 50% { opacity:0 } }
+
+/* Responsive, non-overlapping topology diagram: fixes the narrow-screen module */
+.network-visual { min-height:260px; padding:20px 14px 48px; }
+.network-map-fixed { position:relative; width:min(100%,520px); height:100%; min-height:190px; margin:auto; overflow:hidden; }
+.topology-svg { position:absolute; inset:0; width:100%; height:100%; overflow:visible; }
+.topology-link { fill:none; stroke:rgba(112,255,155,.7); stroke-width:2.2; stroke-linecap:round; stroke-linejoin:round; }
+.topology-link-dash { stroke:#b1ffca; stroke-width:1; stroke-dasharray:4 8; opacity:.7; animation: topology-flow 1.6s linear infinite; }
+.net-device { position:absolute; z-index:2; display:grid; place-items:center; border:1px solid rgba(112,255,155,.65); background:#0b1a10; color:#aaffc0; font:12px var(--font-mono); box-shadow:0 0 18px rgba(65,255,124,.08); }
+.net-router { width:62px;height:42px;left:calc(50% - 31px);top:5%;border-radius:50%;border-color:#4ad5a1;color:#8fffd0; }
+.net-switch { width:78px;height:44px;left:calc(50% - 39px);top:39%;border-radius:7px; }
+.net-pc { width:72px;height:42px;top:79%;border-radius:6px; }
+.net-pc1 { left:calc(27.5% - 36px); }.net-pc2 { left:calc(72.5% - 36px); }
+.network-map-fixed::after { content:"PACKET FLOW / DEMO"; position:absolute; left:50%; top:63%; transform:translateX(-50%); color:#52785d; font:8px var(--font-mono); letter-spacing:.12em; white-space:nowrap; }
+
+@media (max-width:600px) {
+ .access-frame { padding:19px 15px; }.access-brand { margin-top:27px; }.access-title { padding:25px 0 17px; }.access-log { min-height:128px; font-size:9px; }.access-topline { font-size:7px; }.access-footer { align-items:flex-start; flex-direction:column; }.access-command label { font-size:8px; }.access-command input { font-size:10px; }
+ .network-visual { min-height:235px; padding:16px 10px 45px; }.network-map-fixed { min-height:172px; }.net-router { top:3%; }.net-switch { top:38%; }.net-pc { top:78%; }
+}
+@media (prefers-reduced-motion: reduce) { .access-noise,.access-title h1 span,.topology-link-dash { animation:none !important; }.access-sequence,.access-progress span { transition:none !important; } }
+@media (max-width: 760px) {
+  .project-outcome { display: grid; grid-template-columns: 1fr; gap: 5px; }
+  .project-outcome > span:first-child { font-size: 8px; }
+}
+
+
+/* Profile quick-setup identity line */
+.profile-role-line { margin: -0.65rem 0 1.25rem; color: var(--accent, #70ff9b); font: 500 .78rem/1.6 "DM Mono", monospace; letter-spacing: .04em; text-transform: uppercase; }
+[hidden] { display: none !important; }

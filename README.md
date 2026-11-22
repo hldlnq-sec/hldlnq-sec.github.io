@@ -1,3 +1,5 @@
+> **Быстрое заполнение:** все основные личные данные собраны в объекте `PROFILE` в начале `js/script.js`. Пошаговая карта заполнения всех разделов находится в [`PROFILE-QUICK-SETUP.md`](PROFILE-QUICK-SETUP.md).
+
 # Cybersecurity Portfolio
 
 Адаптивное двуязычное портфолио специалиста по информационной безопасности. Проект рассчитан на публикацию как статический сайт через **GitHub Pages**: HTML, CSS и vanilla JavaScript, без сборки и серверной части.
@@ -96,3 +98,14 @@ The page includes a browser-only Cyber Range: a fictional five-node network map,
 All nodes, documentation-range IP addresses, and event records are fictional. The simulation does not scan devices, connect to external systems, execute operating-system commands, store results on a server, or collect visitor data. It uses only HTML, CSS, and JavaScript and runs on GitHub Pages without a build step or backend.
 
 Terminal shortcuts: `map` opens the map, `trace` starts the visual route animation, and `mission` opens the learning scenario.
+
+
+## First-entry experience
+
+On page load, visitors see a fictional terminal access sequence. The animation is a visual introduction only: it does not connect to targets, scan networks, run shell commands, or authenticate against a real system. Visitors can type `unlock` when the sequence completes or use **Skip simulation**. The portfolio remains a static GitHub Pages site.
+
+The project cards use a responsive SVG network topology. The diagram scales within its visual panel on mobile screens, and the project outcome label stacks above its description on narrow viewports.
+
+## Terminal navigation
+
+After the access intro, the terminal can navigate the portfolio: `about`, `university`, `skills`, `expertise`, `projects`, `education`, `certificates`, `contact`, and `home`. Learning-area commands include `map`, `trace`, and `mission`. All commands are local allow-listed actions; no operating-system shell is exposed.

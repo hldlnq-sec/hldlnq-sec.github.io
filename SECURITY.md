@@ -37,3 +37,8 @@ These measures reduce common risks for this static portfolio; they do not consti
 - Mission answers and achievements exist only in the current page session and are not sent to a server.
 - The terminal shortcuts `map`, `trace`, and `mission` only scroll to local page components or start the local animation.
 - No shell, browser network API, remote code, or third-party JavaScript library is invoked by these interactions.
+
+
+## Access animation
+
+The opening terminal sequence is fictional UI only. It performs no authentication, scanning, exploitation, shell execution, or external network requests. The `unlock` input accepts a fixed local keyword and only dismisses the overlay. It must not be represented as a real security control.

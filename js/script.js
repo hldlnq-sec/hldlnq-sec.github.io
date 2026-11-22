@@ -5,15 +5,54 @@
  */
 
 const PROFILE = {
+  // EDIT THIS OBJECT FIRST. It is the single quick-setup point for your personal data.
   name: "YOUR NAME",
-  // Add only public contact details you are comfortable sharing.
-  // Leave a field empty to keep that contact card hidden on the site.
+  roleRu: "Студент факультета информационной безопасности · Junior / Internship",
+  roleEn: "Information Security Student · Junior / Internship",
+  summaryRu: "Студент БГУИР, изучаю сетевую безопасность, Linux и основы тестирования на проникновение. Закрепляю знания в собственной лаборатории и учебных проектах.",
+  summaryEn: "Information Security student at BSUIR, learning network security, Linux, and penetration-testing fundamentals through a personal lab and academic projects.",
+  university: "Белорусский государственный университет информатики и радиоэлектроники",
+  facultyRu: "Факультет информационной безопасности",
+  facultyEn: "Faculty of Information Security",
+  studyPeriod: "2025—2028",
+  gpa: "8.75",
+  locationRu: "Минск, Беларусь",
+  locationEn: "Minsk, Belarus",
+  languages: "RU · EN · FR",
+  languageLevelsRu: "Родной · A2–B1 · B1–B2",
+  languageLevelsEn: "Native · A2–B1 · B1–B2",
+  scholarshipRu: "Стипендиат",
+  scholarshipEn: "Scholarship recipient",
+  // Add only public contact details you are comfortable sharing. Empty fields stay hidden.
   email: "",
   github: "",
   linkedin: "",
   telegram: "",
   instagram: "",
 };
+
+function applyProfileData() {
+  const values = {
+    name: PROFILE.name,
+    role: currentLanguage === "ru" ? PROFILE.roleRu : PROFILE.roleEn,
+    summary: currentLanguage === "ru" ? PROFILE.summaryRu : PROFILE.summaryEn,
+    university: PROFILE.university,
+    faculty: currentLanguage === "ru" ? PROFILE.facultyRu : PROFILE.facultyEn,
+    studyPeriod: PROFILE.studyPeriod,
+    gpa: PROFILE.gpa,
+    location: currentLanguage === "ru" ? PROFILE.locationRu : PROFILE.locationEn,
+    languages: PROFILE.languages,
+    languageLevels: currentLanguage === "ru" ? PROFILE.languageLevelsRu : PROFILE.languageLevelsEn,
+    scholarship: currentLanguage === "ru" ? PROFILE.scholarshipRu : PROFILE.scholarshipEn,
+  };
+  document.querySelectorAll("[data-profile]").forEach((node) => {
+    const value = values[node.dataset.profile];
+    if (typeof value === "string" && value.trim()) node.textContent = value;
+  });
+  document.querySelectorAll("[data-profile-name]").forEach((node) => {
+    node.textContent = PROFILE.name === "YOUR NAME" ? "YOUR NAME" : PROFILE.name;
+  });
+}
 
 const translations = {
   ru: {
@@ -190,6 +229,7 @@ function applyLanguage(language) {
   const menuLabel = currentLanguage === "ru" ? "Открыть меню" : "Open menu";
   menuToggle.setAttribute("aria-label", menuLabel);
   document.title = currentLanguage === "ru" ? `${PROFILE.name} — Портфолио по кибербезопасности` : `${PROFILE.name} — Cybersecurity Portfolio`;
+  applyProfileData();
   renderTerminalWelcome();
   refreshCyberRangeLanguage();
 }
@@ -286,6 +326,7 @@ const terminalResponses = {
       ["result", "projects   — учебные и личные проекты"],
       ["result", "education  — университет и курсы"],
       ["result", "contact    — способы связи"],
+      ["result", "about / university / skills / projects / education / certificates / home — навигация по сайту"],
       ["result", "map        — интерактивная карта сети"],
       ["result", "trace      — визуальная трассировка"],
       ["result", "mission    — учебный сценарий реагирования"],
@@ -301,6 +342,7 @@ const terminalResponses = {
       ["result", "projects   — academic and personal projects"],
       ["result", "education  — university and courses"],
       ["result", "contact    — contact options"],
+      ["result", "about / university / skills / projects / education / certificates / home — navigate the site"],
       ["result", "map        — interactive network map"],
       ["result", "trace      — visual route trace"],
       ["result", "mission    — incident-response scenario"],
@@ -309,8 +351,8 @@ const terminalResponses = {
     ],
   },
   whoami: {
-    ru: [["heading", "ПРОФИЛЬ"], ["result", "Студент факультета информационной безопасности БГУИР"], ["result", "GPA: 8.75 / 10 · обучение: 2025–2028"], ["result", "Фокус: Network Security · Information Security · Pentest Foundations"], ["muted", "Открыт к стажировке и Junior-возможностям."]],
-    en: [["heading", "PROFILE"], ["result", "Information Security student at BSUIR"], ["result", "GPA: 8.75 / 10 · study period: 2025–2028"], ["result", "Focus: Network Security · Information Security · Pentest Foundations"], ["muted", "Open to internship and junior-level opportunities."]],
+    ru: [["heading", "ПРОФИЛЬ"], ["result", `${PROFILE.roleRu}`], ["result", `GPA: ${PROFILE.gpa} / 10 · обучение: ${PROFILE.studyPeriod}`], ["result", "Фокус: Network Security · Information Security · Pentest Foundations"], ["muted", "Открыт к стажировке и Junior-возможностям."]],
+    en: [["heading", "PROFILE"], ["result", `${PROFILE.roleEn}`], ["result", `GPA: ${PROFILE.gpa} / 10 · study period: ${PROFILE.studyPeriod}`], ["result", "Focus: Network Security · Information Security · Pentest Foundations"], ["muted", "Open to internship and junior-level opportunities."]],
   },
   skills: {
     ru: [["heading", "ТЕХНИЧЕСКАЯ БАЗА"], ["result", "Networking: OSI, TCP/IP, IPv4/IPv6, DNS, DHCP, HTTP/HTTPS"], ["result", "Systems: Linux CLI, Windows, базовый анализ журналов Windows"], ["result", "Tools: Kali Linux, VirtualBox, Metasploitable, Cisco Packet Tracer"], ["result", "Programming: C, алгоритмы и базовая обработка данных"], ["muted", "Уровень — начальный; навыки развиваются в учебной среде."]],
@@ -329,13 +371,18 @@ const terminalResponses = {
     en: [["heading", "SELECTED PROJECTS"], ["result", "01  Virtual Cybersecurity Laboratory"], ["result", "02  Network Fundamentals Laboratory"], ["result", "03  Windows Security & Incident Response"], ["result", "04  Introductory CTF Practice & OSINT"], ["result", "05  Vacancy Recommendation System (C)"], ["muted", "Scroll to the Projects section for full descriptions."]],
   },
   education: {
-    ru: [["heading", "ОБРАЗОВАНИЕ И ОБУЧЕНИЕ"], ["result", "БГУИР · Факультет информационной безопасности · 2025–2028"], ["result", "GPA: 8.75 / 10 · стипендиат"], ["result", "Cisco Networking Academy: Introduction to Cybersecurity, Networking Basics, Packet Tracer"], ["result", "Stepik: The Basics of Linux Terminal, Basics of C Programming. Tasks"], ["muted", "Языки: русский — родной · английский — A2–B1 · французский — B1–B2."]],
-    en: [["heading", "EDUCATION & TRAINING"], ["result", "BSUIR · Faculty of Information Security · 2025–2028"], ["result", "GPA: 8.75 / 10 · scholarship recipient"], ["result", "Cisco Networking Academy: Introduction to Cybersecurity, Networking Basics, Packet Tracer"], ["result", "Stepik: The Basics of Linux Terminal, Basics of C Programming. Tasks"], ["muted", "Languages: Russian — native · English — A2–B1 · French — B1–B2."]],
+    ru: [["heading", "ОБРАЗОВАНИЕ И ОБУЧЕНИЕ"], ["result", `${PROFILE.university} · ${PROFILE.facultyRu} · ${PROFILE.studyPeriod}`], ["result", `GPA: ${PROFILE.gpa} / 10 · ${PROFILE.scholarshipRu}`], ["result", "Cisco Networking Academy: Introduction to Cybersecurity, Networking Basics, Packet Tracer"], ["result", "Stepik: The Basics of Linux Terminal, Basics of C Programming. Tasks"], ["muted", "Языки: русский — родной · английский — A2–B1 · французский — B1–B2."]],
+    en: [["heading", "EDUCATION & TRAINING"], ["result", `${PROFILE.university} · ${PROFILE.facultyEn} · ${PROFILE.studyPeriod}`], ["result", `GPA: ${PROFILE.gpa} / 10 · ${PROFILE.scholarshipEn}`], ["result", "Cisco Networking Academy: Introduction to Cybersecurity, Networking Basics, Packet Tracer"], ["result", "Stepik: The Basics of Linux Terminal, Basics of C Programming. Tasks"], ["muted", "Languages: Russian — native · English — A2–B1 · French — B1–B2."]],
   },
   contact: {
     ru: [["heading", "КАНАЛЫ СВЯЗИ"], ["result", "Настроенные публичные профили указаны в блоке «Контакты» ниже."], ["muted", "Открыт к стажировкам и начальным позициям в сфере информационной безопасности."]],
     en: [["heading", "CONTACT CHANNELS"], ["result", "Configured public profiles are listed in the Contact section below."], ["muted", "Currently open to internships and entry-level information security roles."]],
   },
+  about: { ru: [["heading", "ПРОФИЛЬ / ABOUT"], ["result", "Перехожу к разделу обо мне."]], en: [["heading", "PROFILE / ABOUT"], ["result", "Opening the About section."]] },
+  university: { ru: [["heading", "ОБРАЗОВАНИЕ / БГУИР"], ["result", "Перехожу к информации об университете."]], en: [["heading", "EDUCATION / BSUIR"], ["result", "Opening the university section."]] },
+  expertise: { ru: [["heading", "КОМПЕТЕНЦИИ"], ["result", "Открываю технические направления и инструменты."]], en: [["heading", "EXPERTISE"], ["result", "Opening technical skills and tools."]] },
+  certificates: { ru: [["heading", "СЕРТИФИКАТЫ"], ["result", "Сертификаты находятся в разделе образования."]], en: [["heading", "CERTIFICATES"], ["result", "Certificates are listed in the Education section."]] },
+  home: { ru: [["heading", "ГЛАВНАЯ"], ["result", "Возвращаюсь к началу портфолио."]], en: [["heading", "HOME"], ["result", "Returning to the portfolio start."]] },
   map: {
     ru: [["heading", "CYBER RANGE / NETWORK MAP"], ["result", "Открываю условную сетевую топологию."], ["muted", "Карта — учебная симуляция без реальных сетевых запросов."]],
     en: [["heading", "CYBER RANGE / NETWORK MAP"], ["result", "Opening the fictional network topology."], ["muted", "The map is a learning simulation and makes no real network requests."]],
@@ -423,6 +470,11 @@ function runCommand(rawCommand) {
   });
   appendTerminalPrompt();
   terminalOutput.scrollTop = terminalOutput.scrollHeight;
+  const sectionTargets = { home: "top", about: "about", university: "university", expertise: "expertise", skills: "expertise", projects: "projects", education: "experience", certificates: "experience", contact: "contact" };
+  if (sectionTargets[command]) {
+    document.getElementById(sectionTargets[command])?.scrollIntoView({ behavior: "smooth", block: "start" });
+    if (command === "home") window.scrollTo({ top: 0, behavior: "smooth" });
+  }
   dispatchTerminalShortcut(command);
 }
 
@@ -823,5 +875,76 @@ window.addEventListener("scroll", updateScrollProgress, { passive: true });
 window.addEventListener("resize", updateScrollProgress);
 updateScrollProgress();
 
+
+// First-entry terminal gate: a fictional, local-only access animation (no real intrusion).
+function initAccessSequence() {
+  const gate = document.getElementById("access-sequence");
+  if (!gate) return;
+  const log = document.getElementById("access-log");
+  const bar = document.getElementById("access-progress-bar");
+  const value = document.getElementById("access-progress-value");
+  const stage = document.getElementById("access-stage-label");
+  const form = document.getElementById("access-command-form");
+  const input = document.getElementById("access-command-input");
+  const unlock = document.getElementById("access-unlock");
+  const skip = document.getElementById("access-skip");
+  const feedback = document.getElementById("access-feedback");
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const steps = [
+    [12, "BOOTSTRAP", "Loading isolated portfolio environment...", "Изолированная среда портфолио загружена..."],
+    [29, "ROUTE CHECK", "Checking local navigation map...", "Проверка локальной карты навигации..."],
+    [47, "IDENTITY", "Reading public profile metadata...", "Чтение открытых данных профиля..."],
+    [66, "INTEGRITY", "Verifying static assets and access policy...", "Проверка статических ресурсов и политики доступа..."],
+    [84, "AUTH CHALLENGE", "Generating fictional access challenge...", "Формирование демонстрационного запроса доступа..."],
+    [100, "READY", "Simulation complete. Awaiting visitor command: unlock", "Симуляция завершена. Ожидается команда посетителя: unlock"]
+  ];
+  let index = 0;
+  let unlocked = false;
+  const langText = (ru, en) => currentLanguage === "ru" ? ru : en;
+  function addLog(message, ok = false) {
+    const line = document.createElement("p");
+    const stamp = `[00:00:${String(steps[Math.max(0,index-1)]?.[0] || 1).padStart(2,"0")}]`;
+    const time = document.createElement("b"); time.textContent = stamp;
+    line.append(time, document.createTextNode(` ${message}`));
+    if (ok) line.classList.add("log-ok");
+    log.append(line);
+    while (log.children.length > 7) log.firstElementChild.remove();
+  }
+  function runStep() {
+    if (unlocked || index >= steps.length) return;
+    const [percent, label, en, ru] = steps[index++];
+    addLog(langText(ru, en), percent === 100);
+    bar.style.width = `${percent}%`; value.textContent = `${String(percent).padStart(2,"0")}%`; stage.textContent = label;
+    if (percent === 100) {
+      input.disabled = false; unlock.disabled = false; input.focus({ preventScroll:true });
+      input.placeholder = langText("введите unlock", "type unlock");
+      feedback.textContent = langText("Подсказка: введите unlock или нажмите UNLOCK.", "Hint: type unlock or press UNLOCK.");
+      return;
+    }
+    window.setTimeout(runStep, reduceMotion ? 80 : 560 + Math.random() * 260);
+  }
+  function enterPortfolio() {
+    if (unlocked) return;
+    unlocked = true;
+    addLog(langText("ДОСТУП РАЗРЕШЁН — добро пожаловать.", "ACCESS GRANTED — welcome."), true);
+    gate.classList.add("is-unlocked"); gate.setAttribute("aria-hidden", "true");
+    document.body.classList.add("portfolio-access-granted");
+    window.setTimeout(() => { gate.remove(); document.querySelector("#main")?.focus({preventScroll:true}); }, reduceMotion ? 0 : 700);
+  }
+  form.addEventListener("submit", (event) => {
+    event.preventDefault();
+    if (input.value.trim().toLowerCase() === "unlock") enterPortfolio();
+    else { feedback.textContent = langText("Команда не распознана. Используйте unlock.", "Command not recognized. Use unlock."); input.select(); }
+  });
+  skip.addEventListener("click", enterPortfolio);
+  document.querySelectorAll("[data-access-ru]").forEach((element) => {
+    // Keep the gate language synchronized with the site language toggle.
+    const observer = new MutationObserver(() => { element.textContent = langText(element.dataset.accessRu, element.dataset.accessEn); });
+    observer.observe(document.documentElement, { attributes:true, attributeFilter:["lang"] });
+  });
+  runStep();
+}
+
 initCyberRange();
 applyLanguage("ru");
+initAccessSequence();

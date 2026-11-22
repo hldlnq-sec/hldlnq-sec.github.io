@@ -18,6 +18,27 @@
   <script src="js/script.js" defer></script>
 </head>
 <body>
+
+  <section class="access-sequence" id="access-sequence" aria-label="Portfolio access simulation" aria-modal="true" role="dialog">
+    <div class="access-noise" aria-hidden="true"></div>
+    <div class="access-frame">
+      <div class="access-topline"><span><i class="tiny-dot"></i> SECURE GATEWAY // LOCAL SIMULATION</span><span>SESSION: GUEST-7F2A</span></div>
+      <div class="access-brand"><span class="access-mark">[ root@portfolio ]</span><span class="access-version">AUTH PROTOCOL v3.1</span></div>
+      <div class="access-title"><span class="section-kicker" data-access-ru="СИМУЛЯЦИЯ ДОСТУПА" data-access-en="ACCESS SIMULATION">СИМУЛЯЦИЯ ДОСТУПА</span><h1>ACCESS<span>_</span>CONTROL</h1><p data-access-ru="Установление защищённого соединения с цифровым профилем." data-access-en="Establishing a secure connection to the digital profile.">Установление защищённого соединения с цифровым профилем.</p></div>
+      <div class="access-terminal" aria-live="polite">
+        <div class="access-terminal-head"><span>root@portfolio:~# ./init_access.sh</span><span class="access-live"><i></i> LIVE</span></div>
+        <div class="access-log" id="access-log"><p><b>[00:00:01]</b> Initializing local environment...</p></div>
+        <div class="access-progress"><span id="access-progress-bar"></span></div>
+        <div class="access-progress-meta"><span id="access-stage-label">INITIALIZING</span><span id="access-progress-value">00%</span></div>
+      </div>
+      <form class="access-command" id="access-command-form" autocomplete="off">
+        <label for="access-command-input">guest@portfolio:~$</label><input id="access-command-input" maxlength="16" spellcheck="false" autocapitalize="off" placeholder="type 'unlock' to continue" disabled><button type="submit" id="access-unlock" disabled>UNLOCK ↵</button>
+      </form>
+      <div class="access-footer"><span data-access-ru="ДЕМОНСТРАЦИОННАЯ АНИМАЦИЯ · НИКАКИХ РЕАЛЬНЫХ СИСТЕМ НЕ ЗАТРАГИВАЕТ" data-access-en="FICTIONAL ANIMATION · NO REAL SYSTEMS ARE ACCESSED">ДЕМОНСТРАЦИОННАЯ АНИМАЦИЯ · НИКАКИХ РЕАЛЬНЫХ СИСТЕМ НЕ ЗАТРАГИВАЕТ</span><button type="button" id="access-skip" data-access-ru="ПРОПУСТИТЬ СИМУЛЯЦИЮ →" data-access-en="SKIP SIMULATION →">ПРОПУСТИТЬ СИМУЛЯЦИЮ →</button></div>
+      <p class="access-feedback" id="access-feedback" role="status"></p>
+    </div>
+  </section>
+
   <a class="skip-link" href="#main" data-i18n="skip">Перейти к содержанию</a>
   <div class="page-grid" aria-hidden="true"></div>
   <div class="scroll-progress" id="scroll-progress" aria-hidden="true"><span></span></div>
@@ -26,7 +47,7 @@
     <div class="container header-inner">
       <a class="brand" href="#top" aria-label="YOUR NAME — home">
         <span class="brand-mark">&lt;/&gt;</span>
-        <span>YOUR<span class="accent">NAME</span><small>.SEC</small></span>
+        <span><span data-profile-name>YOUR NAME</span><small>.SEC</small></span>
       </a>
 
       <button class="menu-toggle" type="button" aria-label="Открыть меню" aria-expanded="false" aria-controls="primary-nav">
@@ -57,7 +78,9 @@
         <div class="hero-copy">
           <div class="eyebrow"><span class="status-dot"></span><span data-i18n="heroEyebrow">ИНФОРМАЦИОННАЯ БЕЗОПАСНОСТЬ / ПОРТФОЛИО</span></div>
           <h1 id="hero-title"><span data-i18n="heroTitleA">Изучаю угрозы.</span><br><span class="hero-title-accent" data-i18n="heroTitleB">Строю понимание</span><br><span data-i18n="heroTitleC">цифровой защиты.</span></h1>
-          <p class="hero-lead" data-i18n="heroLead">Студент факультета информационной безопасности БГУИР. Изучаю сетевую безопасность, Linux и основы тестирования на проникновение — и закрепляю знания на собственных учебных проектах.</p>
+          <p class="hero-lead" data-profile="summary">Студент БГУИР, изучаю сетевую безопасность, Linux и основы тестирования на проникновение. Закрепляю знания в собственной лаборатории и учебных проектах.</p>
+          <p class="profile-role-line" data-profile="role">Студент факультета информационной безопасности · Junior / Internship</p>
+          <p class="hero-lead" data-i18n="heroLead" hidden>Студент факультета информационной безопасности БГУИР. Изучаю сетевую безопасность, Linux и основы тестирования на проникновение — и закрепляю знания на собственных учебных проектах.</p>
           <div class="hero-actions">
             <a class="button button-primary" href="#projects"><span data-i18n="heroProjects">Смотреть проекты</span><span aria-hidden="true">↘</span></a>
             <a class="button button-ghost" href="#contact"><span data-i18n="heroContact">Обсудить возможность</span><span aria-hidden="true">↗</span></a>
@@ -117,9 +140,9 @@
             </div>
           </div>
           <aside class="about-aside">
-            <div class="stat-card stat-featured"><span class="stat-label" data-i18n="statGpa">СРЕДНИЙ БАЛЛ</span><strong>8.75<span>/10</span></strong><div class="stat-foot"><span data-i18n="statScholarship">Стипендиат</span><span class="stat-symbol">↗</span></div></div>
-            <div class="stat-card"><span class="stat-label" data-i18n="statStudy">ОБУЧЕНИЕ</span><strong class="stat-value">2025—2028</strong><div class="stat-foot"><span>BSUIR · InfoSec</span><span class="stat-symbol">⌁</span></div></div>
-            <div class="stat-card"><span class="stat-label" data-i18n="statLanguages">ЯЗЫКИ</span><strong class="stat-value">RU · EN · FR</strong><div class="stat-foot"><span data-i18n="statLanguageLevels">Родной · A2–B1 · B1–B2</span><span class="stat-symbol">文</span></div></div>
+            <div class="stat-card stat-featured"><span class="stat-label" data-i18n="statGpa">СРЕДНИЙ БАЛЛ</span><strong><span data-profile="gpa">8.75</span><span>/10</span></strong><div class="stat-foot"><span data-profile="scholarship" data-i18n="statScholarship">Стипендиат</span><span class="stat-symbol">↗</span></div></div>
+            <div class="stat-card"><span class="stat-label" data-i18n="statStudy">ОБУЧЕНИЕ</span><strong class="stat-value" data-profile="studyPeriod">2025—2028</strong><div class="stat-foot"><span>BSUIR · InfoSec</span><span class="stat-symbol">⌁</span></div></div>
+            <div class="stat-card"><span class="stat-label" data-i18n="statLanguages">ЯЗЫКИ</span><strong class="stat-value" data-profile="languages">RU · EN · FR</strong><div class="stat-foot"><span data-profile="languageLevels" data-i18n="statLanguageLevels">Родной · A2–B1 · B1–B2</span><span class="stat-symbol">文</span></div></div>
           </aside>
         </div>
       </div>
@@ -134,9 +157,9 @@
             <h2 data-i18n="universityTitle">БГУИР — место, где <span class="text-accent">формируется моя техническая база.</span></h2>
             <p data-i18n="universityText">Я учусь на факультете информационной безопасности Белорусского государственного университета информатики и радиоэлектроники. Учебная программа помогает выстраивать фундамент в сетях, операционных системах, программировании и принципах информационной безопасности, а самостоятельная практика позволяет закреплять эти знания в лабораторных проектах.</p>
             <div class="university-facts">
-              <div class="university-fact"><span data-i18n="universityFactLocation">ГОРОД</span><strong>Минск, Беларусь</strong></div>
-              <div class="university-fact"><span data-i18n="universityFactFaculty">ФАКУЛЬТЕТ</span><strong data-i18n="universityFactFacultyValue">Информационной безопасности</strong></div>
-              <div class="university-fact"><span data-i18n="universityFactPeriod">ПЕРИОД ОБУЧЕНИЯ</span><strong>2025—2028</strong></div>
+              <div class="university-fact"><span data-i18n="universityFactLocation">ГОРОД</span><strong data-profile="location">Минск, Беларусь</strong></div>
+              <div class="university-fact"><span data-i18n="universityFactFaculty">ФАКУЛЬТЕТ</span><strong data-profile="faculty" data-i18n="universityFactFacultyValue">Информационной безопасности</strong></div>
+              <div class="university-fact"><span data-i18n="universityFactPeriod">ПЕРИОД ОБУЧЕНИЯ</span><strong data-profile="studyPeriod">2025—2028</strong></div>
             </div>
             <a class="university-link" href="https://www.bsuir.by/" target="_blank" rel="noopener noreferrer"><span data-i18n="universityOfficial">Официальный сайт университета</span><span aria-hidden="true">↗</span></a>
           </div>
@@ -313,7 +336,7 @@
             <div class="project-info"><div class="project-type"><span data-i18n="projectPersonal">ЛИЧНЫЙ ПРОЕКТ</span><span class="project-number">01</span></div><h3>Virtual Cybersecurity Laboratory</h3><p data-i18n="projectLabText">Создал изолированную виртуальную среду для изучения анализа уязвимостей и контролируемого тестирования. Настроил Kali Linux и Metasploitable в VirtualBox, изучал поведение системы и сетевое взаимодействие в лабораторных условиях.</p><div class="project-tags"><span>VirtualBox</span><span>Kali Linux</span><span>Metasploitable</span></div><div class="project-outcome"><span data-i18n="outcomeLabel">РЕЗУЛЬТАТ</span><span data-i18n="outcomeLab">Практика работы с виртуализированной лабораторией и базовыми сценариями оценки уязвимостей.</span></div></div>
           </article>
           <article class="project-card">
-            <div class="project-visual network-visual"><div class="network-map"><span class="net-device net-router">R1</span><span class="net-device net-switch">SW1</span><span class="net-device net-pc net-pc1">PC1</span><span class="net-device net-pc net-pc2">PC2</span><i class="net-line nl1"></i><i class="net-line nl2"></i><i class="net-line nl3"></i><i class="net-line nl4"></i></div><div class="lab-label">NETWORK TOPOLOGY <span>02 / 05</span></div></div>
+            <div class="project-visual network-visual"><div class="network-map network-map-fixed" role="img" aria-label="Схема учебной сети: маршрутизатор соединён с коммутатором, который соединён с двумя компьютерами"><svg class="topology-svg" viewBox="0 0 600 280" preserveAspectRatio="xMidYMid meet" aria-hidden="true"><path class="topology-link" d="M300 48 V112 M300 160 V192 H165 V220 M300 192 H435 V220"/><path class="topology-link topology-link-dash" d="M300 48 V112 M300 160 V192 H165 V220 M300 192 H435 V220"/></svg><span class="net-device net-router">R1</span><span class="net-device net-switch">SW1</span><span class="net-device net-pc net-pc1">PC1</span><span class="net-device net-pc net-pc2">PC2</span></div><div class="lab-label">NETWORK TOPOLOGY <span>02 / 05</span></div></div>
             <div class="project-info"><div class="project-type"><span data-i18n="projectAcademic">УЧЕБНЫЙ / ТРЕНИНГОВЫЙ ПРОЕКТ</span><span class="project-number">02</span></div><h3>Network Fundamentals Laboratory</h3><p data-i18n="projectNetworkText">Выполнял упражнения по основам сетевой настройки и проверке связности в Cisco Packet Tracer. Работал с концепциями OSI и TCP/IP, адресацией IPv4/IPv6 и назначением DNS, DHCP, HTTP и HTTPS.</p><div class="project-tags"><span>Cisco Packet Tracer</span><span>OSI / TCP/IP</span><span>IPv4 / IPv6</span></div><div class="project-outcome"><span data-i18n="outcomeLabel">РЕЗУЛЬТАТ</span><span data-i18n="outcomeNetwork">Закрепление базовых принципов сетевой архитектуры, адресации и взаимодействия протоколов.</span></div></div>
           </article>
           <article class="project-card">
@@ -393,7 +416,7 @@
     </section>
   </main>
 
-  <footer class="site-footer"><div class="container footer-main"><a class="brand" href="#top"><span class="brand-mark">&lt;/&gt;</span><span>YOUR<span class="accent">NAME</span><small>.SEC</small></span></a><p data-i18n="footerTagline">Постоянное обучение. Осознанная практика. Ответственный подход к безопасности.</p><a class="back-top" href="#top" data-i18n="backTop">НАВЕРХ ↑</a></div><div class="container footer-bottom"><span>© <span id="current-year">2026</span> YOUR NAME. <span data-i18n="footerRights">Все права защищены.</span></span><span class="footer-built">BUILT WITH <span>///</span> CURIOSITY</span><span data-i18n="footerLocation">CYBERSECURITY PORTFOLIO</span></div></footer>
+  <footer class="site-footer"><div class="container footer-main"><a class="brand" href="#top"><span class="brand-mark">&lt;/&gt;</span><span><span data-profile-name>YOUR NAME</span><small>.SEC</small></span></a><p data-i18n="footerTagline">Постоянное обучение. Осознанная практика. Ответственный подход к безопасности.</p><a class="back-top" href="#top" data-i18n="backTop">НАВЕРХ ↑</a></div><div class="container footer-bottom"><span>© <span id="current-year">2026</span> <span data-profile-name>YOUR NAME</span>. <span data-i18n="footerRights">Все права защищены.</span></span><span class="footer-built">BUILT WITH <span>///</span> CURIOSITY</span><span data-i18n="footerLocation">CYBERSECURITY PORTFOLIO</span></div></footer>
 
   <noscript><div class="noscript-message">Для переключения языка и работы интерактивного терминала требуется включить JavaScript. Основная информация о профиле остаётся доступна.</div></noscript>
 </body>
