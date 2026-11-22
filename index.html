@@ -2,15 +2,15 @@
 <html lang="ru">
 <head>
   <meta charset="utf-8">
-  <metaHldlnq="viewport" content="width=device-width, initial-scale=1">
-  <metaHldlnq="theme-color" content="#080e14">
-  <metaHldlnq="referrer" content="strict-origin-when-cross-origin">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://thumb.wikimedia.org https://upload.wikimedia.org; connect-src 'self'; form-action 'self' mailto:; upgrade-insecure-requests">
-  <metaHldlnq="description" content="Портфолио начинающего специалиста по информационной безопасности: сетевые технологии, основы тестирования на проникновение, Linux и практические проекты.">
-  <meta property="og:title" content="Hldlnq — Cybersecurity Portfolio">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#080e14">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://thumb.wikimedia.org https://upload.wikimedia.org; connect-src 'self'; form-action 'self'; upgrade-insecure-requests">
+  <meta name="description" content="Портфолио начинающего специалиста по информационной безопасности: сетевые технологии, основы тестирования на проникновение, Linux, интерактивная учебная сетевая схема и практические проекты.">
+  <meta property="og:title" content="YOUR NAME — Cybersecurity Portfolio">
   <meta property="og:description" content="Information Security Student | Network Security | Pentest Foundations">
   <meta property="og:type" content="website">
-  <title>Hldlnq — Cybersecurity Portfolio</title>
+  <title>YOUR NAME — Cybersecurity Portfolio</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -24,9 +24,9 @@
 
   <header class="site-header" id="top">
     <div class="container header-inner">
-      <a class="brand" href="#top" aria-label="Hldlnq — home">
+      <a class="brand" href="#top" aria-label="YOUR NAME — home">
         <span class="brand-mark">&lt;/&gt;</span>
-        <span><span class="accent">Hldlnq</span><small>.SEC</small></span>
+        <span>YOUR<span class="accent">NAME</span><small>.SEC</small></span>
       </a>
 
       <button class="menu-toggle" type="button" aria-label="Открыть меню" aria-expanded="false" aria-controls="primary-nav">
@@ -61,6 +61,7 @@
           <div class="hero-actions">
             <a class="button button-primary" href="#projects"><span data-i18n="heroProjects">Смотреть проекты</span><span aria-hidden="true">↘</span></a>
             <a class="button button-ghost" href="#contact"><span data-i18n="heroContact">Обсудить возможность</span><span aria-hidden="true">↗</span></a>
+            <a class="button button-ghost hero-range-cta" href="#cyber-range"><span data-i18n="heroRange">Исследовать Cyber Range</span><span aria-hidden="true">⌖</span></a>
           </div>
           <div class="hero-meta">
             <div><span class="meta-label" data-i18n="metaFocus">ФОКУС</span><strong>Network Security · InfoSec</strong></div>
@@ -180,15 +181,15 @@
             <p class="terminal-keyboard-help" data-i18n="terminalKeyboardHelp">ENTER — выполнить команду · ↑ / ↓ — история команд · clear — очистить консоль</p>
           </div>
           <div class="terminal-window" aria-label="Интерактивный терминал" data-i18n-aria="terminalWindowLabel">
-            <div class="terminal-bar"><div class="window-dots"><i></i><i></i><i></i></div><span>guest@Hldlnq:~</span><span class="terminal-bar-right"><i class="tiny-dot"></i> <span data-i18n="terminalLocalDemo">ЛОКАЛЬНАЯ ДЕМО-СЕССИЯ</span></span></div>
+            <div class="terminal-bar"><div class="window-dots"><i></i><i></i><i></i></div><span>guest@yourname:~</span><span class="terminal-bar-right"><i class="tiny-dot"></i> <span data-i18n="terminalLocalDemo">ЛОКАЛЬНАЯ ДЕМО-СЕССИЯ</span></span></div>
             <div class="terminal-output" id="terminal-output" role="log" aria-live="polite" aria-relevant="additions text">
               <p class="terminal-welcome">SECURITY PROFILE TERMINAL <span class="terminal-muted">v2.0</span></p>
               <p class="terminal-muted" data-i18n="terminalWelcome">Это локальная демонстрационная консоль профиля. Начните с команды help.</p>
-              <p class="terminal-prompt-line"><span class="prompt-user">guest@Hldlnq</span>:<span class="prompt-path">~</span>$ <span class="terminal-caret"></span></p>
+              <p class="terminal-prompt-line"><span class="prompt-user">guest@yourname</span>:<span class="prompt-path">~</span>$ <span class="terminal-caret"></span></p>
             </div>
             <form class="terminal-input-row" id="terminal-form" autocomplete="off">
-              <label for="terminal-input"><span class="prompt-user">guest@Hldlnq</span>:<span class="prompt-path">~</span>$</label>
-              <input id="terminal-input"Hldlnq="command" type="text" maxlength="32" spellcheck="false" autocapitalize="off" autocomplete="off" aria-label="Введите команду терминала" data-i18n-placeholder="terminalPlaceholder" placeholder="например, skills или projects">
+              <label for="terminal-input"><span class="prompt-user">guest@yourname</span>:<span class="prompt-path">~</span>$</label>
+              <input id="terminal-input" name="command" type="text" maxlength="32" spellcheck="false" autocapitalize="off" autocomplete="off" aria-label="Введите команду терминала" data-i18n-placeholder="terminalPlaceholder" placeholder="например, skills или projects">
               <button type="submit" aria-label="Выполнить команду">↵</button>
             </form>
             <p class="terminal-safety-note"><span class="tiny-dot"></span><span data-i18n="terminalSafetyNote">Безопасная демонстрация: команды показывают только информацию портфолио и не запускают системные процессы.</span></p>
@@ -198,23 +199,113 @@
         <div class="terminal-command-library">
           <div class="terminal-library-heading"><span class="section-kicker" data-i18n="terminalCommandsKicker">СПРАВОЧНИК</span><h3 data-i18n="terminalCommandsTitle">Команды, которые можно попробовать</h3><p data-i18n="terminalCommandsText">Нажмите на карточку — команда выполнится автоматически. Или введите её самостоятельно в строке терминала.</p></div>
           <div class="terminal-command-grid">
-            <button class="terminal-command-card" type="button" data-command="help"><span class="terminal-command-Hldlnq">help <i>↵</i></span><span data-i18n="terminalCmdHelp">Показать полный список команд и краткую справку.</span></button>
-            <button class="terminal-command-card" type="button" data-command="whoami"><span class="terminal-command-Hldlnq">whoami <i>↵</i></span><span data-i18n="terminalCmdWhoami">Кратко представить профиль, обучение и карьерный фокус.</span></button>
-            <button class="terminal-command-card" type="button" data-command="skills"><span class="terminal-command-Hldlnq">skills <i>↵</i></span><span data-i18n="terminalCmdSkills">Посмотреть технические навыки и инструменты.</span></button>
-            <button class="terminal-command-card" type="button" data-command="network"><span class="terminal-command-Hldlnq">network <i>↵</i></span><span data-i18n="terminalCmdNetwork">Узнать, с какими сетевыми технологиями я работаю.</span></button>
-            <button class="terminal-command-card" type="button" data-command="lab"><span class="terminal-command-Hldlnq">lab <i>↵</i></span><span data-i18n="terminalCmdLab">Посмотреть состав и назначение учебной лаборатории.</span></button>
-            <button class="terminal-command-card" type="button" data-command="projects"><span class="terminal-command-Hldlnq">projects <i>↵</i></span><span data-i18n="terminalCmdProjects">Получить список проектов и перейти к их описанию.</span></button>
-            <button class="terminal-command-card" type="button" data-command="education"><span class="terminal-command-Hldlnq">education <i>↵</i></span><span data-i18n="terminalCmdEducation">Посмотреть образование, GPA и курсы.</span></button>
-            <button class="terminal-command-card" type="button" data-command="contact"><span class="terminal-command-Hldlnq">contact <i>↵</i></span><span data-i18n="terminalCmdContact">Узнать о доступных способах связи.</span></button>
-            <button class="terminal-command-card terminal-command-card-muted" type="button" data-command="clear"><span class="terminal-command-Hldlnq">clear <i>↵</i></span><span data-i18n="terminalCmdClear">Очистить историю вывода и начать заново.</span></button>
+            <button class="terminal-command-card" type="button" data-command="help"><span class="terminal-command-name">help <i>↵</i></span><span data-i18n="terminalCmdHelp">Показать полный список команд и краткую справку.</span></button>
+            <button class="terminal-command-card" type="button" data-command="whoami"><span class="terminal-command-name">whoami <i>↵</i></span><span data-i18n="terminalCmdWhoami">Кратко представить профиль, обучение и карьерный фокус.</span></button>
+            <button class="terminal-command-card" type="button" data-command="skills"><span class="terminal-command-name">skills <i>↵</i></span><span data-i18n="terminalCmdSkills">Посмотреть технические навыки и инструменты.</span></button>
+            <button class="terminal-command-card" type="button" data-command="network"><span class="terminal-command-name">network <i>↵</i></span><span data-i18n="terminalCmdNetwork">Узнать, с какими сетевыми технологиями я работаю.</span></button>
+            <button class="terminal-command-card" type="button" data-command="lab"><span class="terminal-command-name">lab <i>↵</i></span><span data-i18n="terminalCmdLab">Посмотреть состав и назначение учебной лаборатории.</span></button>
+            <button class="terminal-command-card" type="button" data-command="projects"><span class="terminal-command-name">projects <i>↵</i></span><span data-i18n="terminalCmdProjects">Получить список проектов и перейти к их описанию.</span></button>
+            <button class="terminal-command-card" type="button" data-command="education"><span class="terminal-command-name">education <i>↵</i></span><span data-i18n="terminalCmdEducation">Посмотреть образование, GPA и курсы.</span></button>
+            <button class="terminal-command-card" type="button" data-command="contact"><span class="terminal-command-name">contact <i>↵</i></span><span data-i18n="terminalCmdContact">Узнать о доступных способах связи.</span></button>
+            <button class="terminal-command-card" type="button" data-command="map"><span class="terminal-command-name">map <i>↵</i></span><span data-i18n="terminalCmdMap">Открыть интерактивную карту учебной сети.</span></button>
+            <button class="terminal-command-card" type="button" data-command="trace"><span class="terminal-command-name">trace <i>↵</i></span><span data-i18n="terminalCmdTrace">Запустить визуальную трассировку маршрута.</span></button>
+            <button class="terminal-command-card" type="button" data-command="mission"><span class="terminal-command-name">mission <i>↵</i></span><span data-i18n="terminalCmdMission">Перейти к учебному сценарию реагирования.</span></button>
+            <button class="terminal-command-card terminal-command-card-muted" type="button" data-command="clear"><span class="terminal-command-name">clear <i>↵</i></span><span data-i18n="terminalCmdClear">Очистить историю вывода и начать заново.</span></button>
           </div>
         </div>
       </div>
     </section>
 
+    <section class="section section-cyber-range" id="cyber-range" aria-labelledby="range-title">
+      <div class="container">
+        <div class="section-heading"><span class="section-index">05 / <span data-i18n="rangeIndex">CYBER RANGE</span></span><span class="section-kicker" data-i18n="rangeKicker">ИНТЕРАКТИВНАЯ ЛАБОРАТОРИЯ</span></div>
+        <div class="range-intro">
+          <div><span class="range-terminal-label"><i class="tiny-dot"></i> LOCAL TRAINING ENVIRONMENT / NO LIVE TARGETS</span><h2 id="range-title" data-i18n="rangeTitle">Исследуй сеть. <span class="text-accent">Разбери инцидент.</span></h2></div>
+          <p data-i18n="rangeLead">Небольшая учебная симуляция: изучи условную сетевую топологию, запусти визуальную трассировку и попробуй разобрать набор тестовых событий. Все данные вымышлены, сетевых запросов не выполняется.</p>
+        </div>
+
+        <div class="range-dashboard">
+          <section class="range-panel network-panel" aria-labelledby="network-panel-title">
+            <div class="range-panel-head">
+              <div><span class="section-kicker" data-i18n="networkPanelTag">LOCAL SIMULATION / 01</span><h3 id="network-panel-title" data-i18n="networkPanelTitle">КАРТА УЧЕБНОЙ СЕТИ</h3></div>
+              <span class="panel-live"><i class="tiny-dot"></i> OFFLINE</span>
+            </div>
+            <p class="range-panel-copy" data-i18n="networkPanelText">Выбери узел, чтобы посмотреть его роль. Кнопка трассировки последовательно подсветит маршрут пакета.</p>
+
+            <div class="network-stage" id="network-stage">
+              <div class="network-route-line" aria-hidden="true"><span></span></div>
+              <div class="network-node-list" role="group" aria-label="Узлы условной сети">
+                <button type="button" class="network-node is-selected" data-network-node="gateway" aria-pressed="true">
+                  <span class="network-node-top"><i>01</i><b>↗</b></span><span class="network-node-symbol">◎</span><strong data-i18n="networkNodeGateway">Шлюз</strong><small>EDGE / ROUTER</small><em data-i18n="networkNodeSelect">ОТКРЫТЬ УЗЕЛ</em>
+                </button>
+                <button type="button" class="network-node" data-network-node="firewall" aria-pressed="false">
+                  <span class="network-node-top"><i>02</i><b>▤</b></span><span class="network-node-symbol">▥</span><strong data-i18n="networkNodeFirewall">Firewall</strong><small>POLICY CONTROL</small><em data-i18n="networkNodeSelect">ОТКРЫТЬ УЗЕЛ</em>
+                </button>
+                <button type="button" class="network-node" data-network-node="sensor" aria-pressed="false">
+                  <span class="network-node-top"><i>03</i><b>⌁</b></span><span class="network-node-symbol">◉</span><strong data-i18n="networkNodeSensor">IDS-сенсор</strong><small>DETECTION</small><em data-i18n="networkNodeSelect">ОТКРЫТЬ УЗЕЛ</em>
+                </button>
+                <button type="button" class="network-node" data-network-node="workstation" aria-pressed="false">
+                  <span class="network-node-top"><i>04</i><b>▣</b></span><span class="network-node-symbol">▤</span><strong data-i18n="networkNodeWorkstation">Рабочая станция</strong><small>ENDPOINT</small><em data-i18n="networkNodeSelect">ОТКРЫТЬ УЗЕЛ</em>
+                </button>
+                <button type="button" class="network-node" data-network-node="server" aria-pressed="false">
+                  <span class="network-node-top"><i>05</i><b>⌘</b></span><span class="network-node-symbol">▦</span><strong data-i18n="networkNodeServer">Сервер</strong><small>INTERNAL SERVICE</small><em data-i18n="networkNodeSelect">ОТКРЫТЬ УЗЕЛ</em>
+                </button>
+              </div>
+            </div>
+
+            <div class="network-detail" aria-live="polite" aria-atomic="true">
+              <div class="network-detail-icon" aria-hidden="true">&gt;_</div>
+              <div class="network-detail-main">
+                <span class="section-kicker" data-i18n="networkDetailKicker">КАРТОЧКА УЗЛА</span>
+                <h4 id="network-detail-title">Пограничный шлюз</h4>
+                <p id="network-detail-text" data-i18n="networkDetailDefault">Выбери один из узлов на карте. Ты увидишь его назначение в этой условной учебной сети.</p>
+                <div class="network-detail-meta"><span><small data-i18n="networkDetailRole">РОЛЬ В СХЕМЕ</small><b id="network-detail-role">Входная точка условной сети</b></span><span><small data-i18n="networkDetailAddress">ДЕМО-АДРЕС</small><b id="network-detail-address-value">198.51.100.1</b></span></div>
+              </div>
+            </div>
+
+            <div class="network-controls">
+              <button class="button button-primary" type="button" id="trace-route-button" data-i18n="networkTraceStart">Запустить трассировку</button>
+              <button class="button button-ghost" type="button" id="reset-network-button" data-i18n="networkReset">Сбросить выбор</button>
+              <p id="network-status" role="status" aria-live="polite" data-i18n="networkStatusReady">Симуляция готова. Это иллюстрация, а не реальная сеть.</p>
+            </div>
+            <p class="range-safety-note"><i class="tiny-dot"></i><span data-i18n="networkSafety">СХЕМА И IP-АДРЕСА ДЕМОНСТРАЦИОННЫЕ. НИКАКИЕ УСТРОЙСТВА И СЕТИ НЕ СКАНИРУЮТСЯ.</span></p>
+          </section>
+
+          <section class="range-panel mission-card" id="incident-mission" aria-labelledby="mission-title">
+            <div class="range-panel-head">
+              <div><span class="section-kicker" data-i18n="missionKicker">МИССИЯ 01 / INCIDENT RESPONSE</span><h3 id="mission-title" data-i18n="missionTitle">Разбери тестовый инцидент</h3></div>
+              <span class="mission-crosshair" aria-hidden="true">⌖</span>
+            </div>
+            <p class="range-panel-copy" data-i18n="missionText">Представь, что ты дежурный аналитик. Прочитай три ситуации и выбери наиболее обоснованное действие. Это учебный сценарий, а не проверка реальной инфраструктуры.</p>
+            <div class="mission-status-row"><span id="mission-step">ВОПРОС 1/3</span><span><span data-i18n="missionScoreLabel">РЕЗУЛЬТАТ</span> <b id="mission-score-value">0/3</b></span></div>
+            <div class="mission-progress"><span id="mission-progress-bar"></span></div>
+            <div class="mission-question-wrap">
+              <span class="section-kicker" data-i18n="missionQuestionLabel">ВОПРОС</span>
+              <h4 id="mission-question" tabindex="-1">Загрузка учебного сценария…</h4>
+            </div>
+            <div class="mission-options" id="mission-options" role="group" aria-label="Варианты ответа"></div>
+            <div class="mission-feedback" id="mission-feedback" role="status" aria-live="polite" hidden></div>
+            <button class="button button-primary mission-next" type="button" id="mission-next-button" hidden>Следующий вопрос</button>
+            <p class="mission-data-note"><span class="tiny-dot"></span> TEST DATA / FICTIONAL EVENTS ONLY</p>
+          </section>
+        </div>
+
+        <div class="achievement-strip">
+          <div class="achievement-heading"><span class="section-kicker" data-i18n="achievementsTitle">ДОСТИЖЕНИЯ СЕССИИ</span><span>SESSION / 00<span id="achievement-count">0</span></span></div>
+          <div class="achievement-grid">
+            <div class="achievement" data-achievement="explorer"><span class="achievement-icon">⌖</span><span class="achievement-copy"><strong data-i18n="achievementExplorer">Исследователь сети</strong><small data-i18n="achievementExplorerText">Открыл все пять узлов топологии.</small></span><em data-achievement-state>ЗАБЛОКИРОВАНО</em></div>
+            <div class="achievement" data-achievement="tracer"><span class="achievement-icon">↝</span><span class="achievement-copy"><strong data-i18n="achievementTracer">Аналитик маршрута</strong><small data-i18n="achievementTracerText">Завершил визуальную трассировку.</small></span><em data-achievement-state>ЗАБЛОКИРОВАНО</em></div>
+            <div class="achievement" data-achievement="responder"><span class="achievement-icon">◈</span><span class="achievement-copy"><strong data-i18n="achievementResponder">Incident responder</strong><small data-i18n="achievementResponderText">Завершил учебную миссию.</small></span><em data-achievement-state>ЗАБЛОКИРОВАНО</em></div>
+          </div>
+          <p class="achievement-announcer" id="achievement-announcer" aria-live="polite"></p>
+        </div>
+        <p class="cyber-range-safety" data-i18n="cyberRangeSafety">Вся интерактивность работает локально в браузере. Нет сканирования, подключения к внешним адресам, запуска команд ОС или сбора пользовательских данных.</p>
+      </div>
+    </section>
+
     <section class="section section-projects" id="projects">
       <div class="container">
-        <div class="section-heading"><span class="section-index">05 / <span data-i18n="projectsIndex">ПРОЕКТЫ</span></span><span class="section-kicker" data-i18n="projectsKicker">ПРАКТИКА И ОБУЧЕНИЕ</span></div>
+        <div class="section-heading"><span class="section-index">06 / <span data-i18n="projectsIndex">ПРОЕКТЫ</span></span><span class="section-kicker" data-i18n="projectsKicker">ПРАКТИКА И ОБУЧЕНИЕ</span></div>
         <div class="section-intro-row"><h2 data-i18n="projectsTitle">Практика — мой способ<br><span class="text-accent">закреплять знания.</span></h2><p data-i18n="projectsLead">Учебные и самостоятельные проекты, в которых я применяю изучаемые концепции. Описания отражают выполненную работу без преувеличения результатов.</p></div>
         <div class="projects-list">
           <article class="project-card project-featured">
@@ -243,7 +334,7 @@
 
     <section class="section section-experience" id="experience">
       <div class="container">
-        <div class="section-heading"><span class="section-index">06 / <span data-i18n="educationIndex">ОБРАЗОВАНИЕ</span></span><span class="section-kicker" data-i18n="educationKicker">ОБУЧЕНИЕ И СЕРТИФИКАТЫ</span></div>
+        <div class="section-heading"><span class="section-index">07 / <span data-i18n="educationIndex">ОБРАЗОВАНИЕ</span></span><span class="section-kicker" data-i18n="educationKicker">ОБУЧЕНИЕ И СЕРТИФИКАТЫ</span></div>
         <div class="experience-layout">
           <div class="education-block"><h2 data-i18n="educationTitle">Фундамент для <span class="text-accent">дальнейшего роста.</span></h2><div class="timeline-item"><span class="timeline-date">2025 — 2028</span><div><h3 data-i18n="university">Белорусский государственный университет информатики и радиоэлектроники</h3><p data-i18n="faculty">Факультет информационной безопасности · Бакалавриат</p><div class="education-detail"><span>GPA 8.75 / 10</span><span data-i18n="scholarship">Стипендиат</span></div></div></div><div class="coursework"><span class="meta-label" data-i18n="courseworkLabel">ПРОФИЛЬНЫЕ ДИСЦИПЛИНЫ</span><div class="coursework-tags"><span data-i18n="course1">Информационная безопасность</span><span data-i18n="course2">Компьютерные сети</span><span data-i18n="course3">Программирование и алгоритмы</span><span data-i18n="course4">Операционные системы</span><span data-i18n="course5">Цифровые подписи</span><span data-i18n="course6">Модели безопасности</span></div></div></div>
           <div class="cert-block"><div class="cert-heading"><h3 data-i18n="certTitle">Курсы и сертификаты</h3><span class="cert-count">05</span></div><div class="cert-list">
@@ -263,24 +354,47 @@
 
     <section class="section section-contact" id="contact">
       <div class="container">
-        <div class="section-heading"><span class="section-index">07 / <span data-i18n="contactIndex">КОНТАКТЫ</span></span><span class="section-kicker" data-i18n="contactKicker">НА СВЯЗИ</span></div>
-        <div class="contact-layout"><div class="contact-copy"><h2 data-i18n="contactTitle">Давайте обсудим <span class="text-accent">возможности.</span></h2><p data-i18n="contactText">Открыт к стажировкам, Junior-возможностям и профессиональному общению в сфере информационной безопасности. Буду рад рассказать о своих проектах и обсудить, чем могу быть полезен команде.</p><div class="contact-links"><a href="mailto: _EMAIL@example.com" class="contact-link" data-contact-email><span class="contact-link-icon">@</span><span><small>EMAIL</small><strong data-contact-email-text> _EMAIL@example.com</strong></span><span class="contact-link-arrow">↗</span></a><a href="https://github.com/" target="_blank" rel="noopener noreferrer" class="contact-link" data-contact-social="github"><span class="contact-link-icon">⌘</span><span><small>GITHUB</small><strong data-i18n="githubPlaceholder">Добавить профиль GitHub</strong></span><span class="contact-link-arrow">↗</span></a><a href="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer" class="contact-link" data-contact-social="linkedin"><span class="contact-link-icon">in</span><span><small>LINKEDIN</small><strong data-i18n="linkedinPlaceholder">Добавить профиль LinkedIn</strong></span><span class="contact-link-arrow">↗</span></a></div></div>
-          <form class="contact-form" id="contact-form" novalidate>
-            <div class="form-heading"><span data-i18n="formEyebrow">ФОРМА ОБРАТНОЙ СВЯЗИ</span><span class="form-secure"><i class="tiny-dot"></i> <span data-i18n="formSecure">ЛОКАЛЬНАЯ ПРОВЕРКА</span></span></div>
-            <label for="contact-Hldlnq" data-i18n="formHldlnq">Ваше имя</label><input id="contact-Hldlnq"Hldlnq="Hldlnq" type="text" autocomplete="Hldlnq" required minlength="2" placeholder="Имя" data-i18n-placeholder="formHldlnqPlaceholder">
-            <label for="contact-email" data-i18n="formEmail">Email для ответа</label><input id="contact-email"Hldlnq="email" type="email" autocomplete="email" required maxlength="254" placeholder="Hldlnq@company.com">
-            <label for="contact-message" data-i18n="formMessage">Сообщение</label><textarea id="contact-message"Hldlnq="message" rows="4" required minlength="10" maxlength="2000" placeholder="Расскажите, по какому вопросу вы хотели бы связаться..." data-i18n-placeholder="formMessagePlaceholder"></textarea>
-            <button class="button button-primary form-submit" type="submit"><span data-i18n="formSubmit">Подготовить сообщение</span><span aria-hidden="true">↗</span></button>
-            <p class="form-feedback" id="form-feedback" role="status" aria-live="polite"></p>
-            <p class="form-privacy" data-i18n="formPrivacy">Форма проверяет введённые данные в браузере. Для отправки потребуется указать рабочий email в настройках проекта или подключить сервис обработки форм.</p>
-          </form>
+        <div class="section-heading"><span class="section-index">09 / <span data-i18n="contactIndex">КОНТАКТЫ</span></span><span class="section-kicker" data-i18n="contactKicker">НА СВЯЗИ</span></div>
+        <div class="contact-layout">
+          <div class="contact-copy">
+            <h2 data-i18n="contactTitle">Давайте обсудим <span class="text-accent">возможности.</span></h2>
+            <p data-i18n="contactText">Открыт к стажировкам, Junior-возможностям и профессиональному общению в сфере информационной безопасности. Напишите мне или посмотрите мои проекты в социальных профилях.</p>
+            <div class="contact-links" aria-label="Способы связи">
+              <a href="#" class="contact-link" data-contact-social="github" target="_blank" rel="noopener noreferrer" hidden>
+                <span class="contact-link-icon" aria-hidden="true">GH</span>
+                <span><small data-i18n="contactGithubMeta">КОД И ПРОЕКТЫ</small><strong>GitHub</strong><em data-contact-value></em></span>
+                <span class="contact-link-arrow" aria-hidden="true">↗</span>
+              </a>
+              <a href="#" class="contact-link" data-contact-social="linkedin" target="_blank" rel="noopener noreferrer" hidden>
+                <span class="contact-link-icon" aria-hidden="true">in</span>
+                <span><small data-i18n="contactLinkedinMeta">ПРОФЕССИОНАЛЬНЫЕ КОНТАКТЫ</small><strong>LinkedIn</strong><em data-contact-value></em></span>
+                <span class="contact-link-arrow" aria-hidden="true">↗</span>
+              </a>
+              <a href="#" class="contact-link" data-contact-social="telegram" target="_blank" rel="noopener noreferrer" hidden>
+                <span class="contact-link-icon" aria-hidden="true">TG</span>
+                <span><small data-i18n="contactTelegramMeta">БЫСТРАЯ СВЯЗЬ</small><strong>Telegram</strong><em data-contact-value></em></span>
+                <span class="contact-link-arrow" aria-hidden="true">↗</span>
+              </a>
+              <a href="#" class="contact-link" data-contact-social="instagram" target="_blank" rel="noopener noreferrer" hidden>
+                <span class="contact-link-icon" aria-hidden="true">IG</span>
+                <span><small data-i18n="contactInstagramMeta">ЛИЧНЫЙ ПРОФИЛЬ</small><strong>Instagram</strong><em data-contact-value></em></span>
+                <span class="contact-link-arrow" aria-hidden="true">↗</span>
+              </a>
+              <a href="#" class="contact-link" data-contact-social="email" hidden>
+                <span class="contact-link-icon" aria-hidden="true">@</span>
+                <span><small data-i18n="contactEmailMeta">ЭЛЕКТРОННАЯ ПОЧТА</small><strong>Email</strong><em data-contact-value></em></span>
+                <span class="contact-link-arrow" aria-hidden="true">↗</span>
+              </a>
+            </div>
+            <p class="contact-setup-note" id="contact-setup-note" data-i18n="contactSetupNote">Ссылки на профили появятся после заполнения контактных данных в файле js/script.js перед публикацией.</p>
+          </div>
         </div>
       </div>
     </section>
   </main>
 
-  <footer class="site-footer"><div class="container footer-main"><a class="brand" href="#top"><span class="brand-mark">&lt;/&gt;</span><span> <span class="accent">Hldlnq</span><small>.SEC</small></span></a><p data-i18n="footerTagline">Постоянное обучение. Осознанная практика. Ответственный подход к безопасности.</p><a class="back-top" href="#top" data-i18n="backTop">НАВЕРХ ↑</a></div><div class="container footer-bottom"><span>© <span id="current-year">2026</span>Hldlnq. <span data-i18n="footerRights">Все права защищены.</span></span><span class="footer-built">BUILT WITH <span>///</span> CURIOSITY</span><span data-i18n="footerLocation">CYBERSECURITY PORTFOLIO</span></div></footer>
+  <footer class="site-footer"><div class="container footer-main"><a class="brand" href="#top"><span class="brand-mark">&lt;/&gt;</span><span>YOUR<span class="accent">NAME</span><small>.SEC</small></span></a><p data-i18n="footerTagline">Постоянное обучение. Осознанная практика. Ответственный подход к безопасности.</p><a class="back-top" href="#top" data-i18n="backTop">НАВЕРХ ↑</a></div><div class="container footer-bottom"><span>© <span id="current-year">2026</span> YOUR NAME. <span data-i18n="footerRights">Все права защищены.</span></span><span class="footer-built">BUILT WITH <span>///</span> CURIOSITY</span><span data-i18n="footerLocation">CYBERSECURITY PORTFOLIO</span></div></footer>
 
-  <noscript><div class="noscript-message">Для переключения языка, интерактивного терминала и проверки формы требуется включить JavaScript.</div></noscript>
+  <noscript><div class="noscript-message">Для переключения языка и работы интерактивного терминала требуется включить JavaScript. Основная информация о профиле остаётся доступна.</div></noscript>
 </body>
 </html>
