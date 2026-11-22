@@ -6,7 +6,7 @@
 
 const PROFILE = {
   // EDIT THIS OBJECT FIRST. It is the single quick-setup point for your personal data.
-  name: "YOUR NAME",
+  name: "HLDLNQ-SEC",
   roleRu: "Студент факультета информационной безопасности · Junior / Internship",
   roleEn: "Information Security Student · Junior / Internship",
   summaryRu: "Студент БГУИР, изучаю сетевую безопасность, Linux и основы тестирования на проникновение. Закрепляю знания в собственной лаборатории и учебных проектах.",
@@ -24,11 +24,11 @@ const PROFILE = {
   scholarshipRu: "Стипендиат",
   scholarshipEn: "Scholarship recipient",
   // Add only public contact details you are comfortable sharing. Empty fields stay hidden.
-  email: "",
-  github: "",
+  email: "y.rimashevski.work@gmail.com",
+  github: "https://github.com/hldlnq-sec",
   linkedin: "",
-  telegram: "",
-  instagram: "",
+  telegram: "https://t.me/hldlnq",
+  instagram: "https://www.instagram.com/hldlnq",
 };
 
 function applyProfileData() {
