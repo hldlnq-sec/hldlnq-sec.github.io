@@ -125,3 +125,12 @@ After the access intro, the terminal can navigate the portfolio: `about`, `unive
 The command workspace includes an offline packet-triage mini-game. Inspect six fictional events and choose **ALLOW** or **BLOCK**. Five correct decisions unlock the local `SECURITY ANALYST` achievement. All source addresses are documentation-only examples; no network traffic is sent.
 
 Terminal command: `defense`.
+
+
+## Terminal workspace
+
+After the local access simulation, the site opens a terminal-first command workspace. On wide screens the terminal occupies the main central column; the firewall monitor and Firewall Defense training panel remain as side consoles. On mobile, the workspace stacks vertically while preserving a large terminal input/output area.
+
+Use `help` to list commands. `contact` opens a dedicated contact window that always displays GitHub, LinkedIn, Telegram, Instagram, and Email; configured channels are clickable, while empty channels show the matching PROFILE field to fill in. Contact URLs are validated against allowed HTTPS domains.
+
+The two decorative status labels above the Firewall Defense panel were removed to keep the panel cleaner.

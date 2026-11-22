@@ -326,7 +326,8 @@ const terminalResponses = {
       ["result", "lab        — виртуальная лаборатория"],
       ["result", "projects   — учебные и личные проекты"],
       ["result", "education  — университет и курсы"],
-      ["result", "contact    — способы связи"],
+      ["result", "contact    — отдельное окно со всеми каналами связи"],
+      ["result", "resume     — открыть PDF-резюме"],
       ["result", "about / university / skills / projects / education / certificates / home — навигация по сайту"],
       ["result", "map        — интерактивная карта сети"],
       ["result", "trace      — визуальная трассировка"],
@@ -344,7 +345,8 @@ const terminalResponses = {
       ["result", "lab        — virtual learning lab"],
       ["result", "projects   — academic and personal projects"],
       ["result", "education  — university and courses"],
-      ["result", "contact    — contact options"],
+      ["result", "contact    — open the contact channels window"],
+      ["result", "resume     — open PDF resumes"],
       ["result", "about / university / skills / projects / education / certificates / home — navigate the site"],
       ["result", "map        — interactive network map"],
       ["result", "trace      — visual route trace"],
@@ -380,13 +382,14 @@ const terminalResponses = {
     en: [["heading", "EDUCATION & TRAINING"], ["result", `${PROFILE.university} · ${PROFILE.facultyEn} · ${PROFILE.studyPeriod}`], ["result", `GPA: ${PROFILE.gpa} / 10 · ${PROFILE.scholarshipEn}`], ["result", "Cisco Networking Academy: Introduction to Cybersecurity, Networking Basics, Packet Tracer"], ["result", "Stepik: The Basics of Linux Terminal, Basics of C Programming. Tasks"], ["muted", "Languages: Russian — native · English — A2–B1 · French — B1–B2."]],
   },
   contact: {
-    ru: [["heading", "КАНАЛЫ СВЯЗИ"], ["result", "Настроенные публичные профили указаны в блоке «Контакты» ниже."], ["muted", "Открыт к стажировкам и начальным позициям в сфере информационной безопасности."]],
-    en: [["heading", "CONTACT CHANNELS"], ["result", "Configured public profiles are listed in the Contact section below."], ["muted", "Currently open to internships and entry-level information security roles."]],
+    ru: [["heading", "КАНАЛЫ СВЯЗИ"], ["result", "Открываю отдельное окно со всеми доступными каналами связи."], ["muted", "Настроенные профили активны; пустые каналы показывают, какие поля добавить в PROFILE."]],
+    en: [["heading", "CONTACT CHANNELS"], ["result", "Opening a dedicated window with all available contact channels."], ["muted", "Configured profiles are clickable; empty channels show which PROFILE fields to complete."]],
   },
   about: { ru: [["heading", "ПРОФИЛЬ / ABOUT"], ["result", "Перехожу к разделу обо мне."]], en: [["heading", "PROFILE / ABOUT"], ["result", "Opening the About section."]] },
   university: { ru: [["heading", "ОБРАЗОВАНИЕ / БГУИР"], ["result", "Перехожу к информации об университете."]], en: [["heading", "EDUCATION / BSUIR"], ["result", "Opening the university section."]] },
   expertise: { ru: [["heading", "КОМПЕТЕНЦИИ"], ["result", "Открываю технические направления и инструменты."]], en: [["heading", "EXPERTISE"], ["result", "Opening technical skills and tools."]] },
   certificates: { ru: [["heading", "СЕРТИФИКАТЫ"], ["result", "Сертификаты находятся в разделе образования."]], en: [["heading", "CERTIFICATES"], ["result", "Certificates are listed in the Education section."]] },
+  resume: { ru: [["heading", "РЕЗЮМЕ / PDF"], ["result", "Открываю документы с версиями резюме."]], en: [["heading", "RESUME / PDF"], ["result", "Opening the available resume documents."]] },
   home: { ru: [["heading", "ГЛАВНАЯ"], ["result", "Возвращаюсь к началу портфолио."]], en: [["heading", "HOME"], ["result", "Returning to the portfolio start."]] },
   map: {
     ru: [["heading", "CYBER RANGE / NETWORK MAP"], ["result", "Открываю условную сетевую топологию."], ["muted", "Карта — учебная симуляция без реальных сетевых запросов."]],
@@ -892,9 +895,83 @@ window.addEventListener("resize", updateScrollProgress);
 updateScrollProgress();
 
 
-// Internal desktop: commands open portfolio modules in draggable-style modal windows (no page navigation).
+// Internal desktop: terminal commands open focused modules as in-app windows.
 let movedRangeOriginalParent = null;
 let movedRangeOriginalNext = null;
+function buildContactWindow(content) {
+  const isRu = currentLanguage === "ru";
+  const section = document.createElement("section");
+  section.className = "contact-window-module";
+
+  const kicker = document.createElement("p");
+  kicker.className = "contact-window-kicker";
+  kicker.textContent = isRu ? "COMMS://PUBLIC_CHANNELS" : "COMMS://PUBLIC_CHANNELS";
+  const heading = document.createElement("h2");
+  heading.textContent = isRu ? "Каналы связи" : "Contact channels";
+  const intro = document.createElement("p");
+  intro.className = "contact-window-intro";
+  intro.textContent = isRu
+    ? "Для предложений о стажировке, Junior-позициях и профессиональном общении используй один из каналов ниже."
+    : "For internship opportunities, junior roles, or professional conversations, use one of the channels below.";
+
+  const list = document.createElement("div");
+  list.className = "contact-window-list";
+  const channels = [
+    { key: "github", label: "GitHub", meta: isRu ? "КОД И ПРОЕКТЫ" : "CODE & PROJECTS", icon: "GH", hosts: contactCards.github.hosts, hint: "https://github.com/username" },
+    { key: "linkedin", label: "LinkedIn", meta: isRu ? "ПРОФЕССИОНАЛЬНЫЕ КОНТАКТЫ" : "PROFESSIONAL NETWORK", icon: "in", hosts: contactCards.linkedin.hosts, hint: "https://linkedin.com/in/username" },
+    { key: "telegram", label: "Telegram", meta: isRu ? "БЫСТРАЯ СВЯЗЬ" : "DIRECT MESSAGES", icon: "TG", hosts: contactCards.telegram.hosts, hint: "https://t.me/username" },
+    { key: "instagram", label: "Instagram", meta: isRu ? "ЛИЧНЫЙ ПРОФИЛЬ" : "PERSONAL PROFILE", icon: "IG", hosts: contactCards.instagram.hosts, hint: "https://instagram.com/username" },
+    { key: "email", label: "Email", meta: isRu ? "ЭЛЕКТРОННАЯ ПОЧТА" : "EMAIL", icon: "@", hosts: [], hint: "name@example.com" },
+  ];
+
+  channels.forEach((channel) => {
+    let href = null;
+    let display = "";
+    if (channel.key === "email") {
+      const email = typeof PROFILE.email === "string" ? PROFILE.email.trim() : "";
+      if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) && email.length <= 254) {
+        href = `mailto:${email}`;
+        display = email;
+      }
+    } else {
+      const parsed = safeProfileUrl(PROFILE[channel.key], channel.hosts);
+      if (parsed) { href = parsed.href; display = `${parsed.hostname}${parsed.pathname}`; }
+    }
+
+    const card = document.createElement(href ? "a" : "div");
+    card.className = `contact-window-card${href ? " is-configured" : " is-unconfigured"}`;
+    if (href) {
+      card.href = href;
+      if (channel.key !== "email") { card.target = "_blank"; card.rel = "noopener noreferrer"; }
+    }
+    const icon = document.createElement("span");
+    icon.className = "contact-window-icon";
+    icon.textContent = channel.icon;
+    const copy = document.createElement("span");
+    copy.className = "contact-window-copy";
+    const meta = document.createElement("small");
+    meta.textContent = channel.meta;
+    const label = document.createElement("strong");
+    label.textContent = channel.label;
+    const value = document.createElement("em");
+    value.textContent = display || (isRu ? `Добавь ${channel.hint} в PROFILE` : `Add ${channel.hint} to PROFILE`);
+    copy.append(meta, label, value);
+    const marker = document.createElement("span");
+    marker.className = "contact-window-marker";
+    marker.textContent = href ? "↗" : (isRu ? "НЕ НАСТРОЕНО" : "NOT SET");
+    card.append(icon, copy, marker);
+    list.append(card);
+  });
+
+  const note = document.createElement("p");
+  note.className = "contact-window-note";
+  note.textContent = isRu
+    ? "Публичные ссылки настраиваются в объекте PROFILE в начале файла js/script.js. Пустые каналы показаны как напоминание и не являются активными ссылками."
+    : "Public links are configured in the PROFILE object near the top of js/script.js. Empty channels are reminders, not active links.";
+  section.append(kicker, heading, intro, list, note);
+  content.append(section);
+}
+
 function openPortfolioWindow(sectionId, command) {
   const modal = document.getElementById("portfolio-modal");
   const content = document.getElementById("portfolio-modal-content");
@@ -902,23 +979,32 @@ function openPortfolioWindow(sectionId, command) {
   if (!modal || !content) return;
   restoreMovedRange();
   content.replaceChildren();
-  const source = document.getElementById(sectionId);
-  if (!source) return;
-  let panel;
-  if (sectionId === "cyber-range") {
-    movedRangeOriginalParent = source.parentNode;
-    movedRangeOriginalNext = source.nextSibling;
-    panel = source;
-    content.append(panel);
+
+  if (sectionId === "contact") {
+    buildContactWindow(content);
   } else {
-    panel = source.cloneNode(true);
-    panel.querySelectorAll("[id]").forEach((node) => node.removeAttribute("id"));
-    if (panel.id) panel.removeAttribute("id");
-    content.append(panel);
+    const source = document.getElementById(sectionId);
+    if (!source) {
+      appendTerminalLine("terminal-error", currentLanguage === "ru" ? "Модуль не найден." : "Module not found.");
+      appendTerminalPrompt();
+      return;
+    }
+    let panel;
+    if (sectionId === "cyber-range") {
+      movedRangeOriginalParent = source.parentNode;
+      movedRangeOriginalNext = source.nextSibling;
+      panel = source;
+      content.append(panel);
+    } else {
+      panel = source.cloneNode(true);
+      panel.querySelectorAll("[id]").forEach((node) => node.removeAttribute("id"));
+      if (panel.id) panel.removeAttribute("id");
+      content.append(panel);
+    }
   }
+
   const names = {
-    about: currentLanguage === "ru" ? "PROFILE://ABOUT" : "PROFILE://ABOUT",
-    university: "EDUCATION://BSUIR", expertise: "SYSTEM://SKILLS", projects: "WORKSPACE://PROJECTS",
+    about: "PROFILE://ABOUT", university: "EDUCATION://BSUIR", expertise: "SYSTEM://SKILLS", projects: "WORKSPACE://PROJECTS",
     experience: "ACADEMY://EDUCATION", contact: "COMMS://CONTACT", resume: "FILES://RESUME", "cyber-range": "SIMULATION://CYBER-RANGE"
   };
   title.textContent = names[sectionId] || `PROFILE://${String(command).toUpperCase()}`;
@@ -928,8 +1014,7 @@ function openPortfolioWindow(sectionId, command) {
     refreshCyberRangeLanguage();
     if (command === "mission") document.getElementById("mission-question")?.focus();
   }
-  const close = document.getElementById("modal-close");
-  close?.focus({ preventScroll:true });
+  document.getElementById("modal-close")?.focus({ preventScroll:true });
 }
 function restoreMovedRange() {
   const range = document.getElementById("cyber-range");

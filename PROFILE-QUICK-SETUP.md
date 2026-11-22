@@ -85,3 +85,10 @@ GitHub Pages — статический хостинг. Сайт не храни
 ## Firewall Defense mini-game
 
 The game content is stored in `js/script.js` in `defenseScenarios`. Each scenario contains fictional source/destination addresses, service, port, a signal description, expected classification, and explanation in Russian and English. Edit only these scenario objects when updating the training content. Keep the addresses in documentation ranges and do not add real visitor or infrastructure data.
+
+
+## Контактное окно терминала
+
+Команда `contact` открывает отдельное внутреннее окно. В нём всегда показаны GitHub, LinkedIn, Telegram, Instagram и Email. Если поле заполнено и ссылка проходит проверку допустимого HTTPS-домена, карточка становится активной. Если поле пустое, карточка останется видимой и покажет пример значения для объекта `PROFILE`. Не указывайте личные адреса и аккаунты, которые не хотите публиковать.
+
+Команда `resume` открывает PDF-резюме. Команды `about`, `university`, `skills`, `projects`, `education` и `certificates` открывают соответствующие информационные окна поверх рабочего пространства.
