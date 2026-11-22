@@ -109,3 +109,19 @@ The project cards use a responsive SVG network topology. The diagram scales with
 ## Terminal navigation
 
 After the access intro, the terminal can navigate the portfolio: `about`, `university`, `skills`, `expertise`, `projects`, `education`, `certificates`, `contact`, and `home`. Learning-area commands include `map`, `trace`, and `mission`. All commands are local allow-listed actions; no operating-system shell is exposed.
+
+
+## Terminal-first interface
+
+После демонстрационной заставки сайт открывает полноэкранную рабочую среду. Терминал остаётся закреплённым в нижней панели, а команды открывают разделы портфолио во внутренних окнах поверх рабочего пространства — без перехода на отдельные страницы. Команда `home` закрывает активное окно, `help` показывает команды. Раздел Cyber Range перемещается в окно целиком, поэтому интерактивная карта и учебная миссия сохраняют обработчики событий.
+
+Фоновая панель Firewall — локальная визуальная симуляция условного сетевого трафика. `AUTO DEFENSE` меняет режим симуляции, `BLOCK NEXT` блокирует следующий демонстрационный пакет. Никакие реальные IP-адреса не опрашиваются, пакеты не отправляются, сканирование и системные команды не выполняются.
+
+Основные команды: `help`, `about`, `whoami`, `university`, `skills`, `expertise`, `network`, `lab`, `projects`, `education`, `certificates`, `resume`, `contact`, `firewall`, `map`, `trace`, `mission`, `home`, `clear`.
+
+
+## Firewall Defense
+
+The command workspace includes an offline packet-triage mini-game. Inspect six fictional events and choose **ALLOW** or **BLOCK**. Five correct decisions unlock the local `SECURITY ANALYST` achievement. All source addresses are documentation-only examples; no network traffic is sent.
+
+Terminal command: `defense`.

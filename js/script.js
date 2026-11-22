@@ -232,6 +232,7 @@ function applyLanguage(language) {
   applyProfileData();
   renderTerminalWelcome();
   refreshCyberRangeLanguage();
+  applyDefenseLanguage(currentLanguage);
 }
 
 languageToggle.addEventListener("click", () => applyLanguage(currentLanguage === "ru" ? "en" : "ru"));
@@ -330,6 +331,8 @@ const terminalResponses = {
       ["result", "map        — интерактивная карта сети"],
       ["result", "trace      — визуальная трассировка"],
       ["result", "mission    — учебный сценарий реагирования"],
+      ["result", "firewall   — открыть учебную сетевую лабораторию"],
+      ["result", "defense    — перейти к интерактивной игре Firewall Defense"],
       ["result", "clear      — очистить вывод"],
       ["muted", "Введите команду в строке ниже или нажмите карточку справочника."],
     ],
@@ -346,6 +349,8 @@ const terminalResponses = {
       ["result", "map        — interactive network map"],
       ["result", "trace      — visual route trace"],
       ["result", "mission    — incident-response scenario"],
+      ["result", "firewall   — open the network learning lab"],
+      ["result", "defense    — focus the Firewall Defense mini-game"],
       ["result", "clear      — clear output"],
       ["muted", "Type a command below or click a command card."],
     ],
@@ -390,6 +395,11 @@ const terminalResponses = {
   trace: {
     ru: [["heading", "LOCAL ROUTE TRACE"], ["result", "Запускаю визуальную трассировку пакета по пяти узлам."], ["muted", "Это анимация учебной схемы, а не системная команда traceroute."]],
     en: [["heading", "LOCAL ROUTE TRACE"], ["result", "Starting a visual packet trace across five nodes."], ["muted", "This is a learning-topology animation, not the system traceroute command."]],
+  },
+  firewall: { ru: [["heading", "FIREWALL CONTROL"], ["result", "Открываю рабочую среду с локальной симуляцией межсетевого экрана."], ["muted", "Пакеты и события вымышлены; внешняя сеть не используется."]], en: [["heading", "FIREWALL CONTROL"], ["result", "Opening the workspace with a local firewall simulation."], ["muted", "Packets and events are fictional; no external network is used."]] },
+  defense: {
+    ru: [["heading", "FIREWALL DEFENSE / TRAINING"], ["result", "Открой центральную панель и проанализируй шесть условных сетевых событий."], ["muted", "Решай, какие события разрешить, а какие заблокировать. За пять и более верных решений выдаётся достижение SECURITY ANALYST."]],
+    en: [["heading", "FIREWALL DEFENSE / TRAINING"], ["result", "Use the central panel to inspect six fictional network events."], ["muted", "Choose which events to allow or block. Five or more correct decisions unlock the SECURITY ANALYST achievement."]],
   },
   mission: {
     ru: [["heading", "INCIDENT RESPONSE / TRAINING"], ["result", "Перехожу к учебной миссии по анализу событий."], ["muted", "Все события в сценарии вымышлены."]],
@@ -470,11 +480,6 @@ function runCommand(rawCommand) {
   });
   appendTerminalPrompt();
   terminalOutput.scrollTop = terminalOutput.scrollHeight;
-  const sectionTargets = { home: "top", about: "about", university: "university", expertise: "expertise", skills: "expertise", projects: "projects", education: "experience", certificates: "experience", contact: "contact" };
-  if (sectionTargets[command]) {
-    document.getElementById(sectionTargets[command])?.scrollIntoView({ behavior: "smooth", block: "start" });
-    if (command === "home") window.scrollTo({ top: 0, behavior: "smooth" });
-  }
   dispatchTerminalShortcut(command);
 }
 
@@ -775,13 +780,24 @@ function advanceMission() {
 }
 
 function dispatchTerminalShortcut(command) {
-  if (command === "map" || command === "mission") {
-    const target = command === "map" ? networkStage : document.getElementById("incident-mission");
-    target.scrollIntoView({ behavior: "smooth", block: "center" });
-    if (command === "mission") window.setTimeout(() => missionQuestion.focus(), 450);
-  } else if (command === "trace") {
-    document.getElementById("cyber-range").scrollIntoView({ behavior: "smooth", block: "center" });
-    startNetworkTrace();
+  if (command === "defense") {
+    const game = document.getElementById("firewall-defense");
+    game?.classList.add("is-command-highlight");
+    game?.scrollIntoView({ behavior: "smooth", block: "center" });
+    window.setTimeout(() => game?.classList.remove("is-command-highlight"), 1400);
+    return;
+  }
+  const destinations = {
+    home: null, about: "about", whoami: "about", university: "university",
+    skills: "expertise", expertise: "expertise", network: "expertise",
+    lab: "projects", projects: "projects", education: "experience", certificates: "experience",
+    contact: "contact", resume: "resume", firewall: "cyber-range", map: "cyber-range", trace: "cyber-range", mission: "cyber-range"
+  };
+  if (Object.prototype.hasOwnProperty.call(destinations, command)) {
+    if (command === "home") { closePortfolioWindow(); return; }
+    openPortfolioWindow(destinations[command], command);
+    if (command === "trace") window.setTimeout(() => startNetworkTrace(), 260);
+    if (command === "mission") window.setTimeout(() => document.getElementById("mission-question")?.focus(), 300);
   }
 }
 
@@ -876,6 +892,261 @@ window.addEventListener("resize", updateScrollProgress);
 updateScrollProgress();
 
 
+// Internal desktop: commands open portfolio modules in draggable-style modal windows (no page navigation).
+let movedRangeOriginalParent = null;
+let movedRangeOriginalNext = null;
+function openPortfolioWindow(sectionId, command) {
+  const modal = document.getElementById("portfolio-modal");
+  const content = document.getElementById("portfolio-modal-content");
+  const title = document.getElementById("portfolio-modal-title");
+  if (!modal || !content) return;
+  restoreMovedRange();
+  content.replaceChildren();
+  const source = document.getElementById(sectionId);
+  if (!source) return;
+  let panel;
+  if (sectionId === "cyber-range") {
+    movedRangeOriginalParent = source.parentNode;
+    movedRangeOriginalNext = source.nextSibling;
+    panel = source;
+    content.append(panel);
+  } else {
+    panel = source.cloneNode(true);
+    panel.querySelectorAll("[id]").forEach((node) => node.removeAttribute("id"));
+    if (panel.id) panel.removeAttribute("id");
+    content.append(panel);
+  }
+  const names = {
+    about: currentLanguage === "ru" ? "PROFILE://ABOUT" : "PROFILE://ABOUT",
+    university: "EDUCATION://BSUIR", expertise: "SYSTEM://SKILLS", projects: "WORKSPACE://PROJECTS",
+    experience: "ACADEMY://EDUCATION", contact: "COMMS://CONTACT", resume: "FILES://RESUME", "cyber-range": "SIMULATION://CYBER-RANGE"
+  };
+  title.textContent = names[sectionId] || `PROFILE://${String(command).toUpperCase()}`;
+  modal.hidden = false;
+  document.body.classList.add("modal-open");
+  if (sectionId === "cyber-range") {
+    refreshCyberRangeLanguage();
+    if (command === "mission") document.getElementById("mission-question")?.focus();
+  }
+  const close = document.getElementById("modal-close");
+  close?.focus({ preventScroll:true });
+}
+function restoreMovedRange() {
+  const range = document.getElementById("cyber-range");
+  if (range && movedRangeOriginalParent) {
+    movedRangeOriginalParent.insertBefore(range, movedRangeOriginalNext);
+    movedRangeOriginalParent = null;
+    movedRangeOriginalNext = null;
+  }
+}
+function closePortfolioWindow() {
+  const modal = document.getElementById("portfolio-modal");
+  if (!modal || modal.hidden) return;
+  restoreMovedRange();
+  document.getElementById("portfolio-modal-content")?.replaceChildren();
+  modal.hidden = true;
+  document.body.classList.remove("modal-open");
+  terminalInput?.focus({ preventScroll:true });
+}
+// Firewall Defense mini-game: a local-only, fictional packet triage exercise.
+// All addresses are documentation ranges; no traffic is sent or inspected.
+const defenseScenarios = [
+  { source: "192.0.2.44", destination: "10.0.0.10", service: "HTTPS", port: "443", signature: "TLS_HANDSHAKE_NORMAL", suspicious: false,
+    signal: { ru: "Ожидаемая TLS-сессия с разрешённым сервисом", en: "Expected TLS session to an approved service" },
+    reason: { ru: "Событие соответствует ожидаемому HTTPS-соединению. При заданных вводных трафик можно разрешить.", en: "The event matches an expected HTTPS session. Based on the provided context, the traffic can be allowed." } },
+  { source: "203.0.113.77", destination: "10.0.0.5", service: "SSH", port: "22", signature: "AUTH_FAILURE_BURST_18", suspicious: true,
+    signal: { ru: "18 неудачных попыток аутентификации за короткий интервал", en: "18 failed authentication attempts in a short interval" },
+    reason: { ru: "Серия отказов для удалённого SSH-доступа выглядит подозрительно. Следует заблокировать событие и проверить журналы.", en: "A burst of failed remote SSH authentications is suspicious. Block this event and review the relevant logs." } },
+  { source: "192.0.2.18", destination: "10.0.0.53", service: "DNS", port: "53", signature: "DNS_QUERY_EXPECTED", suspicious: false,
+    signal: { ru: "Обычный DNS-запрос к настроенному внутреннему резолверу", en: "Routine DNS query to the configured internal resolver" },
+    reason: { ru: "Источник обращается к ожидаемой DNS-службе. Признаков нарушения политики в условии нет — разрешить.", en: "The source is using the expected DNS service. No policy violation is indicated, so allow it." } },
+  { source: "198.51.100.91", destination: "10.0.0.8", service: "RDP", port: "3389", signature: "PUBLIC_ORIGIN_RDP_ATTEMPT", suspicious: true,
+    signal: { ru: "Попытка RDP-подключения из непредусмотренной внешней зоны", en: "RDP connection attempt from an unexpected external zone" },
+    reason: { ru: "Удалённый рабочий стол не должен быть открыт из этой зоны. Заблокировать и проверить правило доступа.", en: "Remote Desktop should not be exposed to this zone. Block the event and review the access rule." } },
+  { source: "192.0.2.61", destination: "10.0.0.12", service: "HTTPS", port: "443", signature: "REQUEST_RATE_ANOMALY", suspicious: true,
+    signal: { ru: "Необычно высокая частота запросов к одному сервису", en: "Unusually high request rate to a single service" },
+    reason: { ru: "Даже при использовании HTTPS резкий всплеск запросов может указывать на автоматизированную активность. Заблокировать событие для дальнейшей проверки.", en: "Even over HTTPS, a sharp request burst can indicate automated activity. Block the event for further review." } },
+  { source: "192.0.2.30", destination: "10.0.0.123", service: "NTP", port: "123", signature: "TIME_SYNC_EXPECTED", suspicious: false,
+    signal: { ru: "Штатный запрос синхронизации времени", en: "Routine time synchronization request" },
+    reason: { ru: "Служба и назначение соответствуют ожидаемой синхронизации времени. Разрешить событие.", en: "The service and destination match the expected time-sync activity. Allow the event." } }
+];
+const defenseState = { index: 0, score: 0, answered: false, finished: false, unlocked: false, decisions: [], lastDecision: null, lastCorrect: false };
+const defenseEls = {};
+
+function applyDefenseLanguage(language) {
+  document.querySelectorAll("[data-defense-ru][data-defense-en]").forEach((node) => {
+    node.textContent = language === "en" ? node.dataset.defenseEn : node.dataset.defenseRu;
+  });
+  if (defenseEls.feedback && defenseState) renderDefenseGame();
+}
+
+function renderDefenseGame() {
+  const lang = currentLanguage || "ru";
+  const isRu = lang === "ru";
+  const total = defenseScenarios.length;
+  const current = defenseScenarios[Math.min(defenseState.index, total - 1)];
+  const set = (id, value) => { if (defenseEls[id]) defenseEls[id].textContent = value; };
+  set("score", String(defenseState.score).padStart(2, "0"));
+  set("processed", String(defenseState.decisions.length).padStart(2, "0"));
+  set("accuracy", defenseState.decisions.length ? `${Math.round(defenseState.score / defenseState.decisions.length * 100)}%` : "—");
+  set("round", defenseState.finished ? `${String(total).padStart(2,"0")} / ${String(total).padStart(2,"0")}` : `${String(defenseState.index + 1).padStart(2,"0")} / ${String(total).padStart(2,"0")}`);
+  if (defenseEls.progress) defenseEls.progress.style.width = `${(defenseState.decisions.length / total) * 100}%`;
+  if (defenseState.finished) {
+    set("shift", isRu ? "СМЕНА ЗАВЕРШЕНА" : "SHIFT COMPLETE");
+    set("event", "SHIFT-SUMMARY");
+    set("signal", isRu ? `Обработано событий: ${total}. Верных решений: ${defenseState.score}.` : `Events processed: ${total}. Correct decisions: ${defenseState.score}.`);
+    set("source", "—"); set("destination", "—"); set("service", "SUMMARY"); set("port", "—");
+    set("signature", defenseState.score >= 5 ? "ANALYST_CERTIFIED / DEMO" : "TRAINING_COMPLETE / DEMO");
+    set("feedback", defenseState.score >= 5
+      ? (isRu ? "Отличная работа. Достижение SECURITY ANALYST разблокировано: ты верно классифицировал не менее пяти событий." : "Excellent work. SECURITY ANALYST unlocked: you correctly classified at least five events.")
+      : (isRu ? "Тренировка завершена. Изучи пояснения и повтори смену, чтобы набрать пять верных решений." : "Training complete. Review the explanations and replay the shift to reach five correct decisions."));
+    set("next", isRu ? "НАЧАТЬ ЗАНОВО ↻" : "RESTART SHIFT ↻");
+    if (defenseEls.achievement) {
+      defenseEls.achievement.classList.toggle("is-unlocked", defenseState.score >= 5);
+      const label = defenseEls.achievement.querySelector("[data-defense-ru]");
+      if (label) label.textContent = defenseState.score >= 5
+        ? (isRu ? "ДОСТИЖЕНИЕ: SECURITY ANALYST — ОТКРЫТО" : "ACHIEVEMENT: SECURITY ANALYST — UNLOCKED")
+        : (isRu ? "ДОСТИЖЕНИЕ: SECURITY ANALYST — ЗАКРЫТО" : "ACHIEVEMENT: SECURITY ANALYST — LOCKED");
+    }
+    defenseEls.allow.disabled = true; defenseEls.block.disabled = true; defenseEls.next.disabled = false;
+    return;
+  }
+  set("shift", isRu ? "СМЕНА АКТИВНА" : "SHIFT IN PROGRESS");
+  set("event", `EVT-${String(defenseState.index + 1).padStart(3, "0")}`);
+  set("signal", current.signal[lang]);
+  set("source", current.source); set("destination", current.destination); set("service", current.service); set("port", current.port); set("signature", current.signature);
+  if (!defenseState.answered) {
+    set("feedback", isRu ? "Изучи событие и выбери действие. Это учебная симуляция." : "Inspect the event and choose an action. This is a training simulation.");
+    defenseEls.feedback?.classList.remove("is-correct", "is-incorrect");
+  } else {
+    const expected = current.suspicious ? "BLOCK" : "ALLOW";
+    const result = defenseState.lastCorrect
+      ? (isRu ? "ВЕРНО." : "CORRECT.")
+      : (isRu ? `НЕВЕРНО. Ожидаемое решение: ${expected}.` : `INCORRECT. Expected decision: ${expected}.`);
+    set("feedback", `${result} ${current.reason[lang]}`);
+    defenseEls.feedback?.classList.toggle("is-correct", defenseState.lastCorrect);
+    defenseEls.feedback?.classList.toggle("is-incorrect", !defenseState.lastCorrect);
+  }
+  const answered = defenseState.answered;
+  defenseEls.allow.disabled = answered; defenseEls.block.disabled = answered;
+  defenseEls.next.disabled = !answered;
+  set("next", isRu ? "СЛЕДУЮЩЕЕ СОБЫТИЕ →" : "NEXT EVENT →");
+  if (defenseEls.card) {
+    defenseEls.card.classList.toggle("is-answered", answered);
+    defenseEls.card.classList.toggle("is-risk", answered && current.suspicious);
+  }
+  if (defenseEls.achievement) {
+    defenseEls.achievement.classList.toggle("is-unlocked", false);
+    const label = defenseEls.achievement.querySelector("[data-defense-ru]");
+    if (label) label.textContent = isRu ? "ДОСТИЖЕНИЕ: SECURITY ANALYST — ЗАКРЫТО" : "ACHIEVEMENT: SECURITY ANALYST — LOCKED";
+  }
+}
+
+function answerDefense(decision) {
+  if (defenseState.answered || defenseState.finished) return;
+  const scenario = defenseScenarios[defenseState.index];
+  const correct = (decision === "block") === scenario.suspicious;
+  defenseState.answered = true;
+  defenseState.lastDecision = decision;
+  defenseState.lastCorrect = correct;
+  defenseState.decisions.push({ decision, correct });
+  if (correct) defenseState.score += 1;
+  renderDefenseGame();
+  const feed = document.getElementById("firewall-feed");
+  if (feed) {
+    const item = document.createElement("p");
+    const dot = document.createElement("i");
+    item.append(dot, document.createTextNode(`${correct ? "TRAINING / CORRECT" : "TRAINING / REVIEW"} · ${scenario.service}:${scenario.port} · ${decision.toUpperCase()}`));
+    if (!correct) item.classList.add("blocked");
+    feed.prepend(item);
+    while (feed.children.length > 5) feed.lastElementChild.remove();
+  }
+}
+
+function advanceDefense() {
+  if (defenseState.finished) {
+    defenseState.index = 0; defenseState.score = 0; defenseState.answered = false; defenseState.finished = false; defenseState.unlocked = false; defenseState.decisions = []; defenseState.lastDecision = null; defenseState.lastCorrect = false;
+    renderDefenseGame();
+    return;
+  }
+  if (!defenseState.answered) return;
+  if (defenseState.index >= defenseScenarios.length - 1) defenseState.finished = true;
+  else { defenseState.index += 1; defenseState.answered = false; defenseState.lastDecision = null; defenseState.lastCorrect = false; }
+  renderDefenseGame();
+}
+
+function initFirewallDefenseGame() {
+  const ids = { card:"defense-packet-card", score:"defense-score", accuracy:"defense-accuracy", processed:"defense-processed", round:"defense-round", progress:"defense-progress-bar", shift:"defense-shift-label", event:"defense-event-id", signal:"defense-signal", source:"defense-source", destination:"defense-destination", service:"defense-service", port:"defense-port", signature:"defense-signature", feedback:"defense-feedback", next:"defense-next", restart:"defense-restart", achievement:"defense-achievement", allow:document.querySelector('[data-defense-action="allow"]'), block:document.querySelector('[data-defense-action="block"]') };
+  Object.entries(ids).forEach(([key, idOrNode]) => { defenseEls[key] = typeof idOrNode === "string" ? document.getElementById(idOrNode) : idOrNode; });
+  if (!defenseEls.card || !defenseEls.allow || !defenseEls.block || !defenseEls.next) return;
+  defenseEls.allow.addEventListener("click", () => answerDefense("allow"));
+  defenseEls.block.addEventListener("click", () => answerDefense("block"));
+  defenseEls.next.addEventListener("click", advanceDefense);
+  defenseEls.restart?.addEventListener("click", () => {
+    defenseState.index = 0; defenseState.score = 0; defenseState.answered = false; defenseState.finished = false; defenseState.unlocked = false; defenseState.decisions = []; defenseState.lastDecision = null; defenseState.lastCorrect = false;
+    defenseEls.feedback.classList.remove("is-correct", "is-incorrect");
+    renderDefenseGame();
+  });
+  renderDefenseGame();
+}
+
+function initCyberDesktop() {
+  const desktop = document.getElementById("cyber-desktop");
+  const slot = document.getElementById("dock-terminal-slot");
+  const terminal = document.querySelector("#terminal-section .terminal-window");
+  if (!desktop || !slot || !terminal) return;
+  slot.append(terminal);
+  const commandLibrary = document.querySelector("#terminal-section .terminal-command-grid");
+  if (commandLibrary) commandLibrary.hidden = true;
+  desktop.hidden = false;
+  document.getElementById("modal-close")?.addEventListener("click", closePortfolioWindow);
+  document.getElementById("modal-minimize")?.addEventListener("click", closePortfolioWindow);
+  document.querySelector("[data-modal-close]")?.addEventListener("click", closePortfolioWindow);
+  document.addEventListener("keydown", (event) => { if (event.key === "Escape") closePortfolioWindow(); });
+  document.getElementById("desktop-language")?.addEventListener("click", () => document.querySelector(".language-toggle")?.click());
+  const clock = document.getElementById("desktop-clock");
+  const updateClock = () => { if (clock) clock.textContent = new Date().toLocaleTimeString([], {hour12:false}); };
+  updateClock(); window.setInterval(updateClock, 1000);
+  initFirewallSimulation();
+  initFirewallDefenseGame();
+}
+function initFirewallSimulation() {
+  const canvas = document.getElementById("firewall-canvas");
+  if (!canvas) return;
+  const ctx = canvas.getContext("2d");
+  if (!ctx) return;
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  let width = 0, height = 0, frame = 0, allowed = 0, blocked = 0, auto = true, forceBlock = false;
+  const packets = [];
+  const feed = document.getElementById("firewall-feed");
+  const addEvent = (message, isBlocked=false) => {
+    if (!feed) return;
+    const p = document.createElement("p"); const dot = document.createElement("i"); p.append(dot, document.createTextNode(message));
+    if (isBlocked) p.classList.add("blocked"); feed.prepend(p); while (feed.children.length > 5) feed.lastElementChild.remove();
+  };
+  const resize = () => { const rect = canvas.getBoundingClientRect(); const dpr = Math.min(window.devicePixelRatio || 1, 2); width = rect.width; height = rect.height; canvas.width = Math.max(1, Math.floor(width*dpr)); canvas.height = Math.max(1, Math.floor(height*dpr)); ctx.setTransform(dpr,0,0,dpr,0,0); };
+  resize(); window.addEventListener("resize", resize);
+  const spawn = () => { packets.push({x:Math.random()*width, y:-10, speed:1+Math.random()*1.8, blocked:forceBlock || (auto && Math.random()>.82) || (!auto && Math.random()>.7), phase:Math.random()*6.28}); forceBlock=false; };
+  document.getElementById("firewall-auto")?.addEventListener("click", (event) => { auto=!auto; event.currentTarget.classList.toggle("is-active",auto); event.currentTarget.textContent=`AUTO DEFENSE: ${auto?'ON':'OFF'}`; addEvent(`Policy mode changed: ${auto?'AUTO':'MANUAL'}`); });
+  document.getElementById("firewall-block")?.addEventListener("click", () => { forceBlock=true; addEvent("Manual rule queued: BLOCK NEXT"); });
+  function draw() {
+    ctx.clearRect(0,0,width,height);
+    ctx.strokeStyle="rgba(60,210,105,.09)"; ctx.lineWidth=1;
+    for(let x=0;x<width;x+=38){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,height);ctx.stroke();}
+    for(let y=0;y<height;y+=38){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(width,y);ctx.stroke();}
+    const fwX=width*.55, fwY=height*.52;
+    ctx.strokeStyle="rgba(83,255,137,.32)";ctx.setLineDash([5,8]);ctx.beginPath();ctx.moveTo(fwX,0);ctx.lineTo(fwX,height);ctx.stroke();ctx.setLineDash([]);
+    ctx.strokeStyle="rgba(83,255,137,.12)";ctx.beginPath();ctx.arc(fwX,fwY,52+Math.sin(frame*.025)*5,0,Math.PI*2);ctx.stroke();
+    if(!reduceMotion && frame%70===0) spawn();
+    packets.forEach((packet,index)=>{ packet.y+=packet.speed; packet.x+=Math.sin(frame*.02+packet.phase)*.22; ctx.fillStyle=packet.blocked?"#ff795c":"#7dff9b";ctx.shadowColor=ctx.fillStyle;ctx.shadowBlur=10;ctx.beginPath();ctx.arc(packet.x,packet.y,2.2,0,Math.PI*2);ctx.fill();ctx.shadowBlur=0;
+      if(packet.y>fwY && !packet.counted){packet.counted=true;if(packet.blocked){blocked++;addEvent("DROP 198.51.100."+(10+blocked%200)+" · POLICY DENY",true);}else{allowed++;addEvent("ALLOW 203.0.113."+(10+allowed%200)+" · TLS SESSION");}document.getElementById("packets-allowed").textContent=String(allowed).padStart(3,"0");document.getElementById("packets-blocked").textContent=String(blocked).padStart(3,"0");}
+    });
+    for(let i=packets.length-1;i>=0;i--) if(packets[i].y>height+20) packets.splice(i,1);
+    frame++; if(!reduceMotion) requestAnimationFrame(draw);
+  }
+  addEvent("Firewall policy loaded · simulated packets only"); addEvent("IDS sensor online · passive mode"); draw();
+}
+
 // First-entry terminal gate: a fictional, local-only access animation (no real intrusion).
 function initAccessSequence() {
   const gate = document.getElementById("access-sequence");
@@ -929,7 +1200,7 @@ function initAccessSequence() {
     addLog(langText("ДОСТУП РАЗРЕШЁН — добро пожаловать.", "ACCESS GRANTED — welcome."), true);
     gate.classList.add("is-unlocked"); gate.setAttribute("aria-hidden", "true");
     document.body.classList.add("portfolio-access-granted");
-    window.setTimeout(() => { gate.remove(); document.querySelector("#main")?.focus({preventScroll:true}); }, reduceMotion ? 0 : 700);
+    window.setTimeout(() => { gate.remove(); document.getElementById("cyber-desktop")?.focus({preventScroll:true}); }, reduceMotion ? 0 : 700);
   }
   form.addEventListener("submit", (event) => {
     event.preventDefault();
@@ -948,3 +1219,4 @@ function initAccessSequence() {
 initCyberRange();
 applyLanguage("ru");
 initAccessSequence();
+initCyberDesktop();

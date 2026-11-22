@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#080e14">
+  <meta name="theme-color" content="#030705">
   <meta name="referrer" content="strict-origin-when-cross-origin">
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://thumb.wikimedia.org https://upload.wikimedia.org; connect-src 'self'; form-action 'self'; upgrade-insecure-requests">
   <meta name="description" content="Портфолио начинающего специалиста по информационной безопасности: сетевые технологии, основы тестирования на проникновение, Linux, интерактивная учебная сетевая схема и практические проекты.">
@@ -38,6 +38,80 @@
       <p class="access-feedback" id="access-feedback" role="status"></p>
     </div>
   </section>
+
+
+  <section class="cyber-desktop" id="cyber-desktop" aria-label="Cybersecurity portfolio command environment" hidden>
+    <div class="desktop-grid" aria-hidden="true"></div>
+    <canvas id="firewall-canvas" aria-hidden="true"></canvas>
+    <header class="desktop-topbar">
+      <div class="desktop-brand"><span class="brand-mark">&lt;/&gt;</span><b data-profile-name>YOUR NAME</b><small>.SEC // SECURE WORKSPACE</small></div>
+      <div class="desktop-status"><i class="tiny-dot"></i><span data-desktop-label>ЛОКАЛЬНАЯ СИМУЛЯЦИЯ АКТИВНА</span><span class="desktop-clock" id="desktop-clock">--:--:--</span></div>
+      <button class="desktop-lang" id="desktop-language" type="button">RU / EN</button>
+    </header>
+    <aside class="firewall-panel" aria-label="Firewall simulation">
+      <div class="hud-panel-title"><span>FIREWALL // CORE-01</span><i class="tiny-dot"></i></div>
+      <div class="firewall-core"><div class="firewall-ring"><span>FW</span></div><b id="firewall-state">ACTIVE</b><small>PACKET INSPECTION</small></div>
+      <div class="firewall-metrics"><div><small>ALLOWED</small><b id="packets-allowed">000</b></div><div><small>BLOCKED</small><b id="packets-blocked">000</b></div></div>
+      <div class="firewall-feed-title">LIVE EVENT STREAM</div>
+      <div class="firewall-feed" id="firewall-feed" aria-live="polite"><p><i></i> Initializing packet monitor...</p></div>
+      <div class="firewall-controls"><button type="button" id="firewall-auto" class="is-active">AUTO DEFENSE: ON</button><button type="button" id="firewall-block">BLOCK NEXT</button></div>
+      <p class="firewall-disclaimer">SIMULATED TRAFFIC / NO REAL NETWORK ACTIVITY</p>
+    </aside>
+    <section class="firewall-game-panel" id="firewall-defense" aria-labelledby="defense-title">
+      <header class="defense-header">
+        <div class="defense-heading-copy">
+          <span class="defense-eyebrow" data-defense-ru="ТРЕНИРОВОЧНЫЙ МОДУЛЬ // 01" data-defense-en="TRAINING MODULE // 01">ТРЕНИРОВОЧНЫЙ МОДУЛЬ // 01</span>
+          <h2 id="defense-title">FIREWALL <span>DEFENSE</span></h2>
+          <p data-defense-ru="Анализируй условные сетевые события и решай, какой трафик пропустить, а какой заблокировать." data-defense-en="Inspect fictional network events and decide which traffic to allow or block.">Анализируй условные сетевые события и решай, какой трафик пропустить, а какой заблокировать.</p>
+        </div>
+        <div class="defense-shift-status"><i class="tiny-dot"></i><span id="defense-shift-label">SHIFT IN PROGRESS</span><b id="defense-round">01 / 06</b></div>
+      </header>
+      <div class="defense-stats" aria-live="polite">
+        <div><small data-defense-ru="ВЕРНЫЕ РЕШЕНИЯ" data-defense-en="CORRECT DECISIONS">ВЕРНЫЕ РЕШЕНИЯ</small><b id="defense-score">00</b></div>
+        <div><small data-defense-ru="ТОЧНОСТЬ" data-defense-en="ACCURACY">ТОЧНОСТЬ</small><b id="defense-accuracy">—</b></div>
+        <div><small data-defense-ru="ОБРАБОТАНО" data-defense-en="PROCESSED">ОБРАБОТАНО</small><b id="defense-processed">00</b></div>
+      </div>
+      <div class="defense-progress" aria-hidden="true"><span id="defense-progress-bar"></span></div>
+      <div class="defense-main">
+        <article class="defense-packet-card" id="defense-packet-card">
+          <div class="packet-card-top"><span data-defense-ru="ВХОДЯЩЕЕ СОБЫТИЕ" data-defense-en="INBOUND EVENT">ВХОДЯЩЕЕ СОБЫТИЕ</span><span id="defense-event-id">EVT-001</span></div>
+          <div class="packet-direction"><span class="packet-indicator"></span><b id="defense-signal">Ожидаемая TLS-сессия с разрешённым сервисом</b></div>
+          <div class="packet-details">
+            <div><small>SOURCE</small><b id="defense-source">192.0.2.44</b></div>
+            <div><small>DESTINATION</small><b id="defense-destination">10.0.0.10</b></div>
+            <div><small>SERVICE</small><b id="defense-service">HTTPS</b></div>
+            <div><small>PORT</small><b id="defense-port">443</b></div>
+          </div>
+          <div class="packet-logline"><span>IDS / SIGNATURE</span><b id="defense-signature">TLS_HANDSHAKE_NORMAL</b></div>
+        </article>
+        <div class="defense-decisions">
+          <span class="defense-decision-label" data-defense-ru="ТВОЁ РЕШЕНИЕ" data-defense-en="YOUR DECISION">ТВОЁ РЕШЕНИЕ</span>
+          <button type="button" class="defense-action defense-allow" data-defense-action="allow"><b>ALLOW</b><small data-defense-ru="Разрешить трафик" data-defense-en="Permit traffic">Разрешить трафик</small></button>
+          <button type="button" class="defense-action defense-block" data-defense-action="block"><b>BLOCK</b><small data-defense-ru="Заблокировать трафик" data-defense-en="Deny traffic">Заблокировать трафик</small></button>
+          <p class="defense-feedback" id="defense-feedback" role="status" aria-live="polite" data-defense-ru="Изучи событие и выбери действие. Это учебная симуляция." data-defense-en="Inspect the event and choose an action. This is a training simulation.">Изучи событие и выбери действие. Это учебная симуляция.</p>
+          <div class="defense-game-buttons"><button type="button" id="defense-next" disabled data-defense-ru="СЛЕДУЮЩЕЕ СОБЫТИЕ →" data-defense-en="NEXT EVENT →">СЛЕДУЮЩЕЕ СОБЫТИЕ →</button><button type="button" id="defense-restart" data-defense-ru="СБРОСИТЬ" data-defense-en="RESET">СБРОСИТЬ</button></div>
+        </div>
+      </div>
+      <footer class="defense-footer"><span id="defense-achievement" class="defense-achievement"><i>◇</i> <span data-defense-ru="ДОСТИЖЕНИЕ: SECURITY ANALYST — ЗАКРЫТО" data-defense-en="ACHIEVEMENT: SECURITY ANALYST — LOCKED">ДОСТИЖЕНИЕ: SECURITY ANALYST — ЗАКРЫТО</span></span><span data-defense-ru="ТОЛЬКО ВЫМЫШЛЕННЫЕ СОБЫТИЯ · ОФЛАЙН-СИМУЛЯЦИЯ" data-defense-en="FICTIONAL EVENTS ONLY · OFFLINE SIMULATION">ТОЛЬКО ВЫМЫШЛЕННЫЕ СОБЫТИЯ · ОФЛАЙН-СИМУЛЯЦИЯ</span></footer>
+    </section>
+    <div class="desktop-center-hint"><span>SECURE PROFILE ENVIRONMENT</span><b>TYPE <em>help</em> TO EXPLORE</b><small>All portfolio modules open as internal windows.</small></div>
+    <div class="desktop-window-layer" id="desktop-window-layer" aria-live="polite"></div>
+    <section class="desktop-terminal-dock" aria-label="Portfolio terminal">
+      <div class="dock-heading"><span><i class="tiny-dot"></i> COMMAND INTERFACE</span><span>LOCAL SESSION // GUEST</span></div>
+      <div class="dock-terminal-slot" id="dock-terminal-slot"></div>
+      <div class="dock-commandbar"><span>QUICK COMMANDS</span><div class="dock-commands">
+        <button type="button" data-command="about">about</button><button type="button" data-command="skills">skills</button><button type="button" data-command="projects">projects</button><button type="button" data-command="education">education</button><button type="button" data-command="contact">contact</button><button type="button" data-command="firewall">firewall</button><button type="button" data-command="defense">defense</button><button type="button" data-command="map">cyber-range</button><button type="button" data-command="help">help</button>
+      </div></div>
+    </section>
+    <div class="desktop-bottomline"><span>PORTFOLIO OS // BUILD 2026.11</span><span>SESSION ISOLATED · NO SHELL ACCESS</span><span>ESC — CLOSE WINDOW</span></div>
+  </section>
+  <div class="portfolio-modal" id="portfolio-modal" hidden>
+    <div class="portfolio-modal-backdrop" data-modal-close></div>
+    <section class="portfolio-modal-window" role="dialog" aria-modal="true" aria-labelledby="portfolio-modal-title">
+      <header class="portfolio-modal-bar"><div class="window-dots"><i></i><i></i><i></i></div><span id="portfolio-modal-title">PROFILE://MODULE</span><div class="portfolio-modal-actions"><button type="button" id="modal-minimize" aria-label="Minimize window">—</button><button type="button" id="modal-close" aria-label="Close window">×</button></div></header>
+      <div class="portfolio-modal-content" id="portfolio-modal-content"></div>
+    </section>
+  </div>
 
   <a class="skip-link" href="#main" data-i18n="skip">Перейти к содержанию</a>
   <div class="page-grid" aria-hidden="true"></div>
